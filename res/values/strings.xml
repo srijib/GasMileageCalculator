@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GasMileageCalculator</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="pager_title_strip_fillup">Fillup</string>
+    <string name="textView_fillup_date">Jul 23, 2013</string>
+
+</resources>

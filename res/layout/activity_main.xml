@@ -1,0 +1,33 @@
+<android.support.v4.view.ViewPager
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+    
+    <android.support.v4.view.PagerTitleStrip
+        android:id="@+id/pager_title_strip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        android:textColor="#cfcfcf" />
+    
+    <LinearLayout
+        android:id="@+id/fillup_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        
+        <TextView
+        android:id="@+id/textView_fillup_date"
+        android:text="@string/textView_fillup_date"
+        style="@android:style/Widget.Spinner" />
+ 
+    </LinearLayout>
+
+    
+    
+</android.support.v4.view.ViewPager>
