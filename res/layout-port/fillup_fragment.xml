@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:showDividers="end" >
+
+    <TextView
+        android:id="@+id/textView_fillup_date"
+        style="?android:attr/spinnerStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/textView_fillup_date" />
+
+    <EditText
+        android:id="@+id/edit_fuel_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/fuel_rate_hint"
+        android:inputType="numberDecimal" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/edit_fuel_volume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/fuel_volume_hint"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/edit_odometer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/odometer_hint"
+        android:inputType="numberDecimal" />
+
+    <CheckedTextView
+        android:id="@+id/checkText_fillup_topped"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/checkText_topped_up_text" />
+
+    <TextView
+        android:id="@+id/label_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/notes_text_hint"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/button_enter_fillup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:drawableRight="@android:drawable/ic_menu_send"
+        android:padding="8dp"
+        android:text="@string/button_fillup_text" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp" >
+
+        <TextView
+            android:id="@+id/label_vehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="@string/label_vehicle_text" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="?android:attr/spinnerStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_text" />
+
+    </LinearLayout>
+
+</LinearLayout>

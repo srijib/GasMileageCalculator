@@ -6,5 +6,13 @@
     <string name="hello_world">Hello world!</string>
     <string name="pager_title_strip_fillup">Fillup</string>
     <string name="textView_fillup_date">Jul 23, 2013</string>
+    <string name="fuel_rate_hint">Fuel Price (per Gallon)</string>
+    <string name="fuel_volume_hint">Fuel Volume (Gallons)</string>
+    <string name="odometer_hint">Odometer (miles)</string>
+    <string name="checkText_topped_up_text">Not topped up?</string>
+    <string name="button_fillup_text">Fillup</string>
+    <string name="label_vehicle_text">For Vehicle:</string>
+    <string name="vehicle_text">2008 Mercedes-Benz E 350</string>
+    <string name="notes_text_hint">Add notes (optional)</string>
 
 </resources>
