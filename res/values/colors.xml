@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="fillup_above_avg">#669900</color>
+    <color name="fillup_avg">#ff8800</color>
+    <color name="fillup_below_avg">#cc0000</color>
+    
+</resources>
