@@ -15,5 +15,9 @@
     <string name="vehicle_text">2008 Mercedes-Benz E 350</string>
     <string name="notes_text_hint">Add notes (optional)</string>
     <string name="vehicle_nickname">MB E350</string>
+    <string-array name="page_titles">
+        <item >Fillup</item>
+        <item >History</item>
+    </string-array>
 
 </resources>
