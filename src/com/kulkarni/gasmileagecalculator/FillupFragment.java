@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -15,7 +16,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 /**
@@ -25,9 +28,11 @@ import android.widget.TextView;
 public class FillupFragment extends Fragment
 {
 	
+	@SuppressLint("ValidFragment")
 	public class DatePickerFragment extends DialogFragment implements
 			DatePickerDialog.OnDateSetListener {
 		
+		@Override
 		public Dialog onCreateDialog (Bundle savedInstanceState) {
 			Long curDate = savedInstanceState.getLong("setDate");
 			
@@ -38,6 +43,17 @@ public class FillupFragment extends Fragment
 			int day   = c.get(Calendar.DAY_OF_MONTH);
 			
 			return new DatePickerDialog(getActivity(), this, year, month, day);
+		}
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int month, int day) {
+			// TODO Auto-generated method stub
+			Calendar c = Calendar.getInstance();
+			c.set(year, month, day);
+			mDate = new Date (c.getTimeInMillis());
+			
+			TextView dateTextView = (TextView) getActivity().findViewById(R.id.textView_fillup_date);
+			dateTextView.setText(getDateString());
 		}
 	}
 
