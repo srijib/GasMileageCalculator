@@ -25,7 +25,8 @@ import android.widget.TextView;
  * @author Amey Kulkarni
  *
  */
-public class FillupFragment extends Fragment
+public class FillupFragment extends Fragment implements
+	View.OnClickListener
 {
 	
 	@SuppressLint("ValidFragment")
@@ -34,7 +35,7 @@ public class FillupFragment extends Fragment
 		
 		@Override
 		public Dialog onCreateDialog (Bundle savedInstanceState) {
-			Long curDate = savedInstanceState.getLong("setDate");
+			Long curDate = getArguments().getLong("setDate");
 			
 			final Calendar c = Calendar.getInstance();
 			c.setTimeInMillis(curDate);
@@ -70,10 +71,12 @@ public class FillupFragment extends Fragment
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fillup_fragment, container, false);
 		
-		mDate = new Date ();
+		Calendar c = Calendar.getInstance();
+		mDate = new Date (c.getTimeInMillis());
 		
 		TextView dateTextView = (TextView) rootView.findViewById(R.id.textView_fillup_date);
 		dateTextView.setText(getDateString ());
+		dateTextView.setOnClickListener(this);
 		return rootView;
 	}
 
@@ -91,6 +94,16 @@ public class FillupFragment extends Fragment
 		newFragment.setArguments(currentDate);
 		
 		newFragment.show(getFragmentManager(), "datePicker");
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.textView_fillup_date:
+			onDateClicked(v);
+			break;
+		}
 	}
 	
 }
