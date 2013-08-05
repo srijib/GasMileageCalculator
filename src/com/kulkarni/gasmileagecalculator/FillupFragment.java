@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author Amey Kulkarni
@@ -51,10 +52,22 @@ public class FillupFragment extends Fragment implements
 			// TODO Auto-generated method stub
 			Calendar c = Calendar.getInstance();
 			c.set(year, month, day);
+			
+			if (isDateInFuture(c)) {
+				Toast.makeText(getActivity(), "Date cannot be in the future", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			
 			mDate = new Date (c.getTimeInMillis());
 			
 			TextView dateTextView = (TextView) getActivity().findViewById(R.id.textView_fillup_date);
 			dateTextView.setText(getDateString());
+		}
+		
+		private boolean isDateInFuture (Calendar c) {
+			Calendar today = Calendar.getInstance();
+			
+			return today.before(c);
 		}
 	}
 
