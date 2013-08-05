@@ -43,14 +43,14 @@
         android:hint="@string/odometer_hint"
         android:inputType="numberDecimal" />
 
-    <CheckedTextView
-        android:id="@+id/checkText_fillup_topped"
+    <CheckBox
+        android:id="@+id/checkBox_fillup_topped"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="@string/checkText_topped_up_text" />
+        android:text="@string/checkBox_topped_up_text" />
 
-    <TextView
+    <EditText
         android:id="@+id/label_notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,12 +74,13 @@
         <TextView
             android:id="@+id/label_vehicle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:padding="4dp"
-            android:text="@string/label_vehicle_text" />
+            android:text="@string/label_vehicle_text"
+            android:gravity="center_vertical"/>
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textVehicleName"
             style="?android:attr/spinnerStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

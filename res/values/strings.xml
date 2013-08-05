@@ -9,7 +9,7 @@
     <string name="fuel_rate_hint">Fuel Price (per Gallon)</string>
     <string name="fuel_volume_hint">Fuel Volume (Gallons)</string>
     <string name="odometer_hint">Odometer (miles)</string>
-    <string name="checkText_topped_up_text">Not topped up?</string>
+    <string name="checkBox_topped_up_text">Not topped up?</string>
     <string name="button_fillup_text">Fillup</string>
     <string name="label_vehicle_text">For Vehicle:</string>
     <string name="vehicle_text">2008 Mercedes-Benz E 350</string>
