@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -58,6 +59,7 @@ public class FillupFragment extends Fragment implements
 	}
 
 	public Date mDate;
+	public boolean notToppedUp = false;
 
 	/**
 	 * 
@@ -76,6 +78,10 @@ public class FillupFragment extends Fragment implements
 		TextView dateTextView = (TextView) rootView.findViewById(R.id.textView_fillup_date);
 		dateTextView.setText(getDateString ());
 		dateTextView.setOnClickListener(this);
+		
+		TextView vehicleName = (TextView) rootView.findViewById(R.id.textVehicleName);
+		vehicleName.setOnClickListener(this);
+		
 		return rootView;
 	}
 
@@ -99,10 +105,26 @@ public class FillupFragment extends Fragment implements
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
+		
 		case R.id.textView_fillup_date:
 			onDateClicked(v);
 			break;
+			
+		case R.id.checkBox_fillup_topped:
+			onCheckedTop (v);
+			break;
+		
+		case R.id.textVehicleName:
+			break;
 		}
+	}
+
+	private void onCheckedTop(View v) {
+		// TODO Auto-generated method stub
+		CheckBox checkTopFillup = (CheckBox) v;
+		
+		notToppedUp = !notToppedUp;
+		checkTopFillup.setChecked(notToppedUp);
 	}
 	
 }
