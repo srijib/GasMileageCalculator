@@ -8,9 +8,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.kulkarni.gasmileagecalculator.helpers.TextValidator;
+
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -19,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -94,6 +99,34 @@ public class FillupFragment extends Fragment implements
 		
 		TextView vehicleName = (TextView) rootView.findViewById(R.id.textVehicleName);
 		vehicleName.setOnClickListener(this);
+		
+		EditText fuelRate = (EditText) rootView.findViewById(R.id.edit_fuel_rate);
+		fuelRate.addTextChangedListener(new TextValidator(fuelRate) {
+			
+			@TargetApi(Build.VERSION_CODES.GINGERBREAD)
+			@Override
+			public void validate(EditText edit, String text) {
+				// TODO Auto-generated method stub
+				if (text.isEmpty())
+					edit.setError("Fuel Price cannot be empty");
+				else if (Double.valueOf(text) <= 0.0)
+					edit.setError("Fuel Price must be greater than zero");
+			}
+		});
+		
+		EditText fuelVolume = (EditText) rootView.findViewById(R.id.edit_fuel_volume);
+		fuelVolume.addTextChangedListener(new TextValidator(fuelVolume) {
+			
+			@TargetApi(Build.VERSION_CODES.GINGERBREAD)
+			@Override
+			public void validate(EditText edit, String text) {
+				// TODO Auto-generated method stub
+				if (text.isEmpty())
+					edit.setError("Fuel Volume cannot be empty");
+				else if (Double.valueOf(text) <= 0.0)
+					edit.setError("Fuel Volume must be greater than zero");
+			}
+		});
 		
 		return rootView;
 	}
