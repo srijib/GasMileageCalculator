@@ -45,7 +45,7 @@
         android:id="@+id/checkBox_fillup_topped"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:drawablePadding="8dp"
         android:text="@string/checkBox_topped_up_text" />
 
     <EditText
