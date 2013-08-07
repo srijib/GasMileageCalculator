@@ -6,7 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="pager_title_strip_fillup">Fillup</string>
     <string name="textView_fillup_date">Jul 23, 2013</string>
-    <string name="fuel_rate_hint">Fuel Price (per Gallon)</string>
+    <string name="fuel_price_hint">Fuel Price (per Gallon)</string>
     <string name="fuel_volume_hint">Fuel Volume (Gallons)</string>
     <string name="odometer_hint">Odometer (miles)</string>
     <string name="checkBox_topped_up_text">Not topped up?</string>
@@ -19,5 +19,6 @@
         <item >Fillup</item>
         <item >History</item>
     </string-array>
+        <string name="label_date">Fillup Date:</string>
 
 </resources>

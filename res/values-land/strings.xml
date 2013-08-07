@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fuel_price_hint">(per gallon)</string><string name="label_fuel_price">Fuel Price:</string>
+    <string name="label_fuel_volume">Fuel Volume:</string>
+    <string name="fuel_volume_hint">(gallons)</string>
+    <string name="label_odometer">Odometer:</string>
+    <string name="odometer_hint">(miles)</string>
+</resources>

@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:showDividers="end" >
+    android:padding="8dp" >
 
     <TextView
         android:id="@+id/textView_fillup_date"
@@ -19,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/fuel_rate_hint"
+        android:hint="@string/fuel_price_hint"
         android:inputType="numberDecimal" >
 
         <requestFocus />
