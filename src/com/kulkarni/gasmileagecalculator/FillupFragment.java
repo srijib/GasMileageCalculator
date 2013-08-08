@@ -128,6 +128,18 @@ public class FillupFragment extends Fragment implements
 			}
 		});
 		
+		EditText odometer = (EditText) rootView.findViewById(R.id.edit_odometer);
+		odometer.addTextChangedListener(new TextValidator(odometer) {
+		
+			@Override
+			public void validate(EditText edit, String text) {
+				if (text.isEmpty())
+					edit.setError("Odometer cannot be empty");
+				else if (Double.valueOf(text) <= 0.0)
+					edit.setError("Odometer must be greater than zero");
+			}
+		});
+		
 		return rootView;
 	}
 
