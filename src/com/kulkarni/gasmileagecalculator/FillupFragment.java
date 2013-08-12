@@ -131,6 +131,7 @@ public class FillupFragment extends Fragment implements
 		EditText odometer = (EditText) rootView.findViewById(R.id.edit_odometer);
 		odometer.addTextChangedListener(new TextValidator(odometer) {
 		
+			@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 			@Override
 			public void validate(EditText edit, String text) {
 				if (text.isEmpty())
