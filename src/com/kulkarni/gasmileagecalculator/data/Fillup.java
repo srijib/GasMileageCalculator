@@ -7,18 +7,18 @@ import android.location.Location;
 public class Fillup {
 	
 	// private members
-	int      _fillup_id;
-	int      _car_id;
-	Date     _fillup_date;
-	double   _fillup_fuel_rate;
-	double   _fillup_fuel_volume;
-	double   _fillup_fuel_cost;
-	double   _fillup_odometer_reading;
-	boolean  _fillup_topped_up;
-	String   _fillup_notes;
+	public int      _fillup_id;
+	public int      _car_id;
+	public Date     _fillup_date;
+	public double   _fillup_fuel_rate;
+	public double   _fillup_fuel_volume;
+	public double   _fillup_fuel_cost;
+	public double   _fillup_odometer_reading;
+	public boolean  _fillup_topped_up;
+	public String   _fillup_notes;
 	
 	// Future members
-	Location _fillup_location;
+	public Location _fillup_location;
 	
 	// Empty constructor
 	public Fillup () {
@@ -46,6 +46,10 @@ public class Fillup {
 	}
 	
 	public static double get_point_mileage (Fillup currentFillup, Fillup previousFillup) {
+		
+		if (currentFillup._fillup_topped_up == false)
+			return -1.0;
+		
 		double distance = get_distance(currentFillup, previousFillup);
 		return (distance / currentFillup._fillup_fuel_volume);
 	}

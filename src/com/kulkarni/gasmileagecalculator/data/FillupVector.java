@@ -3,7 +3,7 @@ package com.kulkarni.gasmileagecalculator.data;
 import java.util.Vector;
 
 public class FillupVector {
-	Vector<Fillup> fillups;
+	public Vector<Fillup> fillups;
 	
 	public double get_total_distance () {
 		int size = fillups.size();
@@ -32,6 +32,7 @@ public class FillupVector {
 		
 		return volume;
 	}
+	
 	
 	public double get_overall_mileage () {
 		return (get_total_distance() / get_total_used_fuel_volume());

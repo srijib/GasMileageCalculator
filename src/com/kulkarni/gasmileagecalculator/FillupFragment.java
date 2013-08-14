@@ -21,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -78,6 +79,9 @@ public class FillupFragment extends Fragment implements
 
 	public Date mDate;
 	public boolean notToppedUp = false;
+	boolean errorRate = false;
+	boolean errorVol = false;
+	boolean errorOdo = false;
 
 	/**
 	 * 
@@ -100,6 +104,9 @@ public class FillupFragment extends Fragment implements
 		TextView vehicleName = (TextView) rootView.findViewById(R.id.textVehicleName);
 		vehicleName.setOnClickListener(this);
 		
+		Button enterFillup = (Button) rootView.findViewById(R.id.button_enter_fillup);
+		enterFillup.setOnClickListener(this);
+		
 		EditText fuelRate = (EditText) rootView.findViewById(R.id.edit_fuel_rate);
 		fuelRate.addTextChangedListener(new TextValidator(fuelRate) {
 			
@@ -107,10 +114,16 @@ public class FillupFragment extends Fragment implements
 			@Override
 			public void validate(EditText edit, String text) {
 				// TODO Auto-generated method stub
-				if (text.isEmpty())
+				if (text.isEmpty()) {
 					edit.setError("Fuel Price cannot be empty");
-				else if (Double.valueOf(text) <= 0.0)
+					errorRate = true;
+				}
+				else if (Double.valueOf(text) <= 0.0) {
 					edit.setError("Fuel Price must be greater than zero");
+					errorRate = true;
+				}
+				else
+					errorRate = false;
 			}
 		});
 		
@@ -121,10 +134,14 @@ public class FillupFragment extends Fragment implements
 			@Override
 			public void validate(EditText edit, String text) {
 				// TODO Auto-generated method stub
+				errorVol = true;
+				
 				if (text.isEmpty())
 					edit.setError("Fuel Volume cannot be empty");
 				else if (Double.valueOf(text) <= 0.0)
 					edit.setError("Fuel Volume must be greater than zero");
+				else
+					errorVol = false;
 			}
 		});
 		
@@ -134,10 +151,14 @@ public class FillupFragment extends Fragment implements
 			@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 			@Override
 			public void validate(EditText edit, String text) {
+				errorOdo = true;
+				
 				if (text.isEmpty())
 					edit.setError("Odometer cannot be empty");
 				else if (Double.valueOf(text) <= 0.0)
 					edit.setError("Odometer must be greater than zero");
+				else
+					errorOdo = false;
 			}
 		});
 		
@@ -175,6 +196,17 @@ public class FillupFragment extends Fragment implements
 		
 		case R.id.textVehicleName:
 			break;
+			
+		case R.id.button_enter_fillup:
+			onEnterFillupClicked (v);
+			break;
+		}
+	}
+
+	private void onEnterFillupClicked(View v) {
+		// TODO Auto-generated method stub
+		if (errorOdo || errorRate || errorVol) {
+			Toast.makeText(getActivity(), "There are errors in the entered values", Toast.LENGTH_LONG).show();
 		}
 	}
 
