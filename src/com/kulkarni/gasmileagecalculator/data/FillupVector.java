@@ -3,7 +3,14 @@ package com.kulkarni.gasmileagecalculator.data;
 import java.util.Vector;
 
 public class FillupVector {
-	public Vector<Fillup> fillups;
+	public static Vector<Fillup> fillups;
+	
+	public FillupVector() {
+		// TODO Auto-generated constructor stub
+		if (fillups == null) {
+			fillups = new Vector<Fillup>();
+		}
+	}
 	
 	public double get_total_distance () {
 		int size = fillups.size();

@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.kulkarni.gasmileagecalculator.data.Fillup;
+import com.kulkarni.gasmileagecalculator.data.FillupVector;
 import com.kulkarni.gasmileagecalculator.helpers.TextValidator;
 
 import android.annotation.SuppressLint;
@@ -206,7 +208,22 @@ public class FillupFragment extends Fragment implements
 	private void onEnterFillupClicked(View v) {
 		// TODO Auto-generated method stub
 		if (errorOdo || errorRate || errorVol) {
-			Toast.makeText(getActivity(), "There are errors in the entered values", Toast.LENGTH_LONG).show();
+			Toast.makeText(getActivity(), "Make sure the entered values are valid", Toast.LENGTH_LONG).show();
+			return;
+		}
+		
+		double fuelRate   = Double.parseDouble(((EditText) getActivity().findViewById(R.id.edit_fuel_rate)).getText().toString());
+		double fuelVolume = Double.parseDouble(((EditText) getActivity().findViewById(R.id.edit_fuel_volume)).getText().toString());
+		double odometer   = Double.parseDouble(((EditText) getActivity().findViewById(R.id.edit_odometer)).getText().toString());
+		
+		Fillup fillup = new Fillup(mDate, fuelRate, fuelVolume, odometer, !notToppedUp);
+		
+		if (FillupVector.fillups.add(fillup)) {
+			Toast.makeText(getActivity(), "Fillup added", Toast.LENGTH_SHORT).show();
+		}
+		else {
+			Toast.makeText(getActivity(), "Error adding fillup", Toast.LENGTH_LONG).show();
+			return;
 		}
 	}
 

@@ -2,6 +2,8 @@ package com.kulkarni.gasmileagecalculator;
 
 import java.util.Locale;
 
+import com.kulkarni.gasmileagecalculator.data.FillupVector;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -24,6 +26,9 @@ public class MainActivity extends FragmentActivity {
         
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        
+        // Initialize the fillup vector
+        FillupVector fv = new FillupVector();
     }
 
 
@@ -33,7 +38,6 @@ public class MainActivity extends FragmentActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
     
     
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
