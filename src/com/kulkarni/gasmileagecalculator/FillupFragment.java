@@ -117,7 +117,7 @@ public class FillupFragment extends Fragment implements
 			public void validate(EditText edit, String text) {
 				// TODO Auto-generated method stub
 				if (text.isEmpty()) {
-					edit.setError("Fuel Price cannot be empty");
+					edit.setError(getResources().getString(R.string.fuel_rate_error));
 					errorRate = true;
 				}
 				else if (Double.valueOf(text) <= 0.0) {
@@ -139,7 +139,7 @@ public class FillupFragment extends Fragment implements
 				errorVol = true;
 				
 				if (text.isEmpty())
-					edit.setError("Fuel Volume cannot be empty");
+					edit.setError(getResources().getString(R.string.fuel_vol_error));
 				else if (Double.valueOf(text) <= 0.0)
 					edit.setError("Fuel Volume must be greater than zero");
 				else
@@ -156,7 +156,7 @@ public class FillupFragment extends Fragment implements
 				errorOdo = true;
 				
 				if (text.isEmpty())
-					edit.setError("Odometer cannot be empty");
+					edit.setError(getResources().getString(R.string.odometer_error));
 				else if (Double.valueOf(text) <= 0.0)
 					edit.setError("Odometer must be greater than zero");
 				else
@@ -205,8 +205,33 @@ public class FillupFragment extends Fragment implements
 		}
 	}
 
+	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	private void onEnterFillupClicked(View v) {
 		// TODO Auto-generated method stub
+		EditText edit_fuel_rate = (EditText) getActivity().findViewById(R.id.edit_fuel_rate);
+		EditText edit_fuel_vol  = (EditText) getActivity().findViewById(R.id.edit_fuel_volume);
+		EditText edit_odometer  = (EditText) getActivity().findViewById(R.id.edit_odometer);
+		
+		String text;
+		
+		text = edit_fuel_rate.getText().toString();
+		if (text.isEmpty())	{
+			edit_fuel_rate.setError(getResources().getString(R.string.fuel_rate_error));
+			errorRate = true;
+		}
+		
+		text = edit_fuel_vol.getText().toString();
+		if (text.isEmpty()) {
+			edit_fuel_vol.setError(getResources().getString(R.string.fuel_vol_error));
+			errorVol = true;
+		}
+		
+		text = edit_odometer.getText().toString();
+		if (text.isEmpty()) {
+			edit_odometer.setError(getResources().getString(R.string.odometer_error));
+			errorOdo = true;
+		}
+		
 		if (errorOdo || errorRate || errorVol) {
 			Toast.makeText(getActivity(), "Make sure the entered values are valid", Toast.LENGTH_LONG).show();
 			return;

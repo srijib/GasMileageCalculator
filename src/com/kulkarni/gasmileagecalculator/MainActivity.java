@@ -28,7 +28,8 @@ public class MainActivity extends FragmentActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         
         // Initialize the fillup vector
-        FillupVector fv = new FillupVector();
+        @SuppressWarnings("unused")
+		FillupVector fv = new FillupVector();
     }
 
 
