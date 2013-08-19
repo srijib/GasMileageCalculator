@@ -2,6 +2,8 @@ package com.kulkarni.gasmileagecalculator.data;
 
 import java.util.Vector;
 
+import com.kulkarni.gasmileagecalculator.data.Fillup;
+
 public class FillupVector {
 	public static Vector<Fillup> fillups;
 	
@@ -10,6 +12,10 @@ public class FillupVector {
 		if (fillups == null) {
 			fillups = new Vector<Fillup>();
 		}
+	}
+	
+	public int size() {
+		return fillups.size();
 	}
 	
 	public double get_total_distance () {
@@ -65,5 +71,13 @@ public class FillupVector {
 		}
 		
 		return cost;
+	}
+
+	public Fillup getItem(int position) {
+		// TODO Auto-generated method stub
+		if (position >= 0)
+			return fillups.get(position);
+		else
+			return null;
 	}
 }

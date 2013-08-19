@@ -10,7 +10,8 @@
         android:id="@+id/img_fillup"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:src="@android:drawable/ic_menu_recent_history" />
+        android:src="@android:drawable/ic_menu_recent_history"
+        android:contentDescription="Fillup Icon" />
 
     <LinearLayout
         android:layout_width="match_parent"
