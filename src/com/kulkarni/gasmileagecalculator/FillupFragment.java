@@ -23,10 +23,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -245,6 +247,9 @@ public class FillupFragment extends Fragment implements
 		
 		if (FillupVector.fillups.add(fillup)) {
 			Toast.makeText(getActivity(), "Fillup added", Toast.LENGTH_SHORT).show();
+			
+			ListView historylist = (ListView) getActivity().findViewById(R.id.history_list);
+			((HistoryAdapter) historylist.getAdapter()).notifyDataSetChanged ();
 		}
 		else {
 			Toast.makeText(getActivity(), "Error adding fillup", Toast.LENGTH_LONG).show();

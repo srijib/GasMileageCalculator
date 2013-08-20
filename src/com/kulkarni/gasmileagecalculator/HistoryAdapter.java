@@ -36,7 +36,7 @@ public class HistoryAdapter extends BaseAdapter {
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return position;
+		return fv.getItem(position);
 	}
 
 	@Override
@@ -81,6 +81,7 @@ public class HistoryAdapter extends BaseAdapter {
 		}
 		else {
 			textMPG.setText("N/A");
+			textMPG.setTextColor(activity.getResources().getColor(android.R.color.darker_gray));
 		}
 		
 		// TODO Auto-generated method stub
