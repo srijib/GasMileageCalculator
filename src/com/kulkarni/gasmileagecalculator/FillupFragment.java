@@ -86,6 +86,14 @@ public class FillupFragment extends Fragment implements
 	boolean errorRate = false;
 	boolean errorVol = false;
 	boolean errorOdo = false;
+	
+	private TextView dateTextView;
+	private TextView vehicleName;
+	private Button   enterFillup;
+	private EditText fuelRate;
+	private EditText fuelVolume;
+	private EditText odometer;
+	private CheckBox checkTopFillup;
 
 	/**
 	 * 
@@ -101,28 +109,23 @@ public class FillupFragment extends Fragment implements
 		Calendar c = Calendar.getInstance();
 		mDate = new Date (c.getTimeInMillis());
 		
-		TextView dateTextView = (TextView) rootView.findViewById(R.id.textView_fillup_date);
+		dateTextView = (TextView) rootView.findViewById(R.id.textView_fillup_date);
 		dateTextView.setText(getDateString ());
 		dateTextView.setOnClickListener(this);
 		
-		TextView vehicleName = (TextView) rootView.findViewById(R.id.textVehicleName);
+		vehicleName = (TextView) rootView.findViewById(R.id.textVehicleName);
 		vehicleName.setOnClickListener(this);
 		
-		Button enterFillup = (Button) rootView.findViewById(R.id.button_enter_fillup);
+		enterFillup = (Button) rootView.findViewById(R.id.button_enter_fillup);
 		enterFillup.setOnClickListener(this);
 		
-		EditText fuelRate = (EditText) rootView.findViewById(R.id.edit_fuel_rate);
+		fuelRate = (EditText) rootView.findViewById(R.id.edit_fuel_rate);
 		fuelRate.addTextChangedListener(new TextValidator(fuelRate) {
 			
-			@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 			@Override
 			public void validate(EditText edit, String text) {
 				// TODO Auto-generated method stub
-				if (text.isEmpty()) {
-					edit.setError(getResources().getString(R.string.fuel_rate_error));
-					errorRate = true;
-				}
-				else if (Double.valueOf(text) <= 0.0) {
+				if (Double.valueOf(text) <= 0.0) {
 					edit.setError("Fuel Price must be greater than zero");
 					errorRate = true;
 				}
@@ -131,40 +134,37 @@ public class FillupFragment extends Fragment implements
 			}
 		});
 		
-		EditText fuelVolume = (EditText) rootView.findViewById(R.id.edit_fuel_volume);
+		fuelVolume = (EditText) rootView.findViewById(R.id.edit_fuel_volume);
 		fuelVolume.addTextChangedListener(new TextValidator(fuelVolume) {
 			
-			@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 			@Override
 			public void validate(EditText edit, String text) {
 				// TODO Auto-generated method stub
 				errorVol = true;
 				
-				if (text.isEmpty())
-					edit.setError(getResources().getString(R.string.fuel_vol_error));
-				else if (Double.valueOf(text) <= 0.0)
+				if (Double.valueOf(text) <= 0.0)
 					edit.setError("Fuel Volume must be greater than zero");
 				else
 					errorVol = false;
 			}
 		});
 		
-		EditText odometer = (EditText) rootView.findViewById(R.id.edit_odometer);
+		odometer = (EditText) rootView.findViewById(R.id.edit_odometer);
 		odometer.addTextChangedListener(new TextValidator(odometer) {
 		
-			@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 			@Override
 			public void validate(EditText edit, String text) {
 				errorOdo = true;
 				
-				if (text.isEmpty())
-					edit.setError(getResources().getString(R.string.odometer_error));
-				else if (Double.valueOf(text) <= 0.0)
+				if (Double.valueOf(text) <= 0.0)
 					edit.setError("Odometer must be greater than zero");
 				else
 					errorOdo = false;
 			}
 		});
+		
+		checkTopFillup = (CheckBox) rootView.findViewById(R.id.checkBox_fillup_topped);
+		checkTopFillup.setChecked(notToppedUp);
 		
 		return rootView;
 	}
@@ -207,30 +207,29 @@ public class FillupFragment extends Fragment implements
 		}
 	}
 
-	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	private void onEnterFillupClicked(View v) {
 		// TODO Auto-generated method stub
-		EditText edit_fuel_rate = (EditText) getActivity().findViewById(R.id.edit_fuel_rate);
-		EditText edit_fuel_vol  = (EditText) getActivity().findViewById(R.id.edit_fuel_volume);
-		EditText edit_odometer  = (EditText) getActivity().findViewById(R.id.edit_odometer);
+		fuelRate = (EditText) getActivity().findViewById(R.id.edit_fuel_rate);
+		fuelVolume  = (EditText) getActivity().findViewById(R.id.edit_fuel_volume);
+		odometer  = (EditText) getActivity().findViewById(R.id.edit_odometer);
 		
 		String text;
 		
-		text = edit_fuel_rate.getText().toString();
-		if (text.isEmpty())	{
-			edit_fuel_rate.setError(getResources().getString(R.string.fuel_rate_error));
+		text = fuelRate.getText().toString();
+		if (text.equals(""))	{
+			fuelRate.setError(getResources().getString(R.string.fuel_rate_error));
 			errorRate = true;
 		}
 		
-		text = edit_fuel_vol.getText().toString();
-		if (text.isEmpty()) {
-			edit_fuel_vol.setError(getResources().getString(R.string.fuel_vol_error));
+		text = fuelVolume.getText().toString();
+		if (text.equals("")) {
+			fuelVolume.setError(getResources().getString(R.string.fuel_vol_error));
 			errorVol = true;
 		}
 		
-		text = edit_odometer.getText().toString();
-		if (text.isEmpty()) {
-			edit_odometer.setError(getResources().getString(R.string.odometer_error));
+		text = odometer.getText().toString();
+		if (text.equals("")) {
+			odometer.setError(getResources().getString(R.string.odometer_error));
 			errorOdo = true;
 		}
 		
@@ -239,9 +238,9 @@ public class FillupFragment extends Fragment implements
 			return;
 		}
 		
-		double fuelRate   = Double.parseDouble(((EditText) getActivity().findViewById(R.id.edit_fuel_rate)).getText().toString());
-		double fuelVolume = Double.parseDouble(((EditText) getActivity().findViewById(R.id.edit_fuel_volume)).getText().toString());
-		double odometer   = Double.parseDouble(((EditText) getActivity().findViewById(R.id.edit_odometer)).getText().toString());
+		double fuelRate   = Double.parseDouble(this.fuelRate.getText().toString());
+		double fuelVolume = Double.parseDouble(this.fuelVolume.getText().toString());
+		double odometer   = Double.parseDouble(this.odometer.getText().toString());
 		
 		Fillup fillup = new Fillup(mDate, fuelRate, fuelVolume, odometer, !notToppedUp);
 		
@@ -250,6 +249,8 @@ public class FillupFragment extends Fragment implements
 			
 			ListView historylist = (ListView) getActivity().findViewById(R.id.history_list);
 			((HistoryAdapter) historylist.getAdapter()).notifyDataSetChanged ();
+			
+			clearForm ();
 		}
 		else {
 			Toast.makeText(getActivity(), "Error adding fillup", Toast.LENGTH_LONG).show();
@@ -257,9 +258,24 @@ public class FillupFragment extends Fragment implements
 		}
 	}
 
+	private void clearForm() {
+		// TODO Auto-generated method stub
+		fuelRate.getText().clear();
+		fuelVolume.getText().clear();
+		odometer.getText().clear();
+		
+		mDate = null;
+		Calendar c = Calendar.getInstance();
+		mDate = new Date (c.getTimeInMillis());
+		dateTextView.setText(getDateString ());
+		
+		notToppedUp = false;
+		checkTopFillup.setChecked(notToppedUp);
+	}
+
 	private void onCheckedTop(View v) {
 		// TODO Auto-generated method stub
-		CheckBox checkTopFillup = (CheckBox) v;
+		checkTopFillup = (CheckBox) v;
 		
 		notToppedUp = !notToppedUp;
 		checkTopFillup.setChecked(notToppedUp);
