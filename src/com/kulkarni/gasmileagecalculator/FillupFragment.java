@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,7 +126,7 @@ public class FillupFragment extends Fragment implements
 			@Override
 			public void validate(EditText edit, String text) {
 				// TODO Auto-generated method stub
-				if (Double.valueOf(text) <= 0.0) {
+				if (!TextUtils.isEmpty(text) && Double.valueOf(text) <= 0.0) {
 					edit.setError("Fuel Price must be greater than zero");
 					errorRate = true;
 				}
@@ -142,7 +143,7 @@ public class FillupFragment extends Fragment implements
 				// TODO Auto-generated method stub
 				errorVol = true;
 				
-				if (Double.valueOf(text) <= 0.0)
+				if (!TextUtils.isEmpty(text) && Double.valueOf(text) <= 0.0)
 					edit.setError("Fuel Volume must be greater than zero");
 				else
 					errorVol = false;
@@ -156,7 +157,7 @@ public class FillupFragment extends Fragment implements
 			public void validate(EditText edit, String text) {
 				errorOdo = true;
 				
-				if (Double.valueOf(text) <= 0.0)
+				if (!TextUtils.isEmpty(text) && Double.valueOf(text) <= 0.0)
 					edit.setError("Odometer must be greater than zero");
 				else
 					errorOdo = false;
