@@ -13,10 +13,8 @@ import com.kulkarni.gasmileagecalculator.data.FillupVector;
 import com.kulkarni.gasmileagecalculator.helpers.TextValidator;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -24,7 +22,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
