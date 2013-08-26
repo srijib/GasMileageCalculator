@@ -21,4 +21,7 @@
     <color name="fillup_avg">#ff8800</color>
     <color name="fillup_below_avg">#cc0000</color>
     <color name="pressed_mystyle">#CCFFBB33</color>
+    <color name="list_divider">#efefef</color>
+    <color name="gradient_bg_start">#dfdfdf</color>
+    <color name="gradient_bg_end">#efefef</color>
 </resources>

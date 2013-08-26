@@ -46,7 +46,6 @@ public class FillupVector {
 		return volume;
 	}
 	
-	
 	public double get_overall_mileage () {
 		return (get_total_distance() / get_total_used_fuel_volume());
 	}
