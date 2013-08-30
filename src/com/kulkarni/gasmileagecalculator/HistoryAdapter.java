@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import com.kulkarni.gasmileagecalculator.data.Fillup;
-import com.kulkarni.gasmileagecalculator.data.FillupVector;
+import com.kulkarni.gasmileagecalculator.data.FillupData;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,10 +18,10 @@ import android.widget.TextView;
 public class HistoryAdapter extends BaseAdapter {
 	
 	private Activity activity;
-	private FillupVector fv;
+	private FillupData fv;
 	private static LayoutInflater inflater = null;
 	
-	public HistoryAdapter (Activity a, FillupVector fillupList) {
+	public HistoryAdapter (Activity a, FillupData fillupList) {
 		activity = a;
 		fv 		 = fillupList;
 		inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -29,19 +29,16 @@ public class HistoryAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return fv.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return fv.getItem(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
@@ -63,12 +60,12 @@ public class HistoryAdapter extends BaseAdapter {
 		Fillup previousFillup = fv.getItem (position - 1);
 		
 		SimpleDateFormat sdf = (SimpleDateFormat) DateFormat.getDateInstance();
-		textDate.setText(sdf.format(fillup._fillup_date));
+		textDate.setText(sdf.format(fillup.get_fillup_date()));
 		
 		textVehicle.setText(activity.getResources().getString(R.string.vehicle_nickname).toUpperCase(Locale.US));
-		textVolume.setText(String.format("%.2f gal", fillup._fillup_fuel_volume));
-		textRate.setText(String.format("$ %.2f/gal", fillup._fillup_fuel_rate));
-		textCost.setText(String.format("$ %.2f", fillup._fillup_fuel_cost));
+		textVolume.setText(String.format("%.2f gal", fillup.get_fillup_fuel_volume()));
+		textRate.setText(String.format("$ %.2f/gal", fillup.get_fillup_fuel_rate()));
+		textCost.setText(String.format("$ %.2f", fillup.get_fillup_fuel_cost()));
 		
 		if (previousFillup != null && fv.size() > 1) {
 			double mileage = Fillup.get_point_mileage(fillup, previousFillup);
@@ -84,7 +81,6 @@ public class HistoryAdapter extends BaseAdapter {
 			textMPG.setTextColor(activity.getResources().getColor(android.R.color.darker_gray));
 		}
 		
-		// TODO Auto-generated method stub
 		return view;
 	}
 

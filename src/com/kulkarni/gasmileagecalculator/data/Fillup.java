@@ -5,20 +5,34 @@ import java.util.Date;
 import android.location.Location;
 
 public class Fillup {
+	private static final String TAG = Fillup.class.getSimpleName();
 	
 	// private members
-	public int      _fillup_id;
-	public int      _car_id;
-	public Date     _fillup_date;
-	public double   _fillup_fuel_rate;
-	public double   _fillup_fuel_volume;
-	public double   _fillup_fuel_cost;
-	public double   _fillup_odometer_reading;
-	public boolean  _fillup_topped_up;
-	public String   _fillup_notes;
+	private int      _fillup_id;
+	private int      _car_id;
+	private Date     _fillup_date;
+	private double   _fillup_fuel_rate;
+	private double   _fillup_fuel_volume;
+	private double   _fillup_fuel_cost;
+	private double   _fillup_odometer_reading;
+	private boolean  _fillup_topped_up;
+	private String   _fillup_notes;
+	private Location _fillup_location;
 	
-	// Future members
-	public Location _fillup_location;
+	public static final String tableName = "tblFillup";
+	public static final String createTable =
+			"CREATE TABLE " + tableName +
+			" _id INTEGER PRIMARY KEY AUTOINCREMENT," +
+			" _modified_time INTEGER NOT NULL" +
+			" car_id INTEGER NOT NULL," +
+			" fillup_date INTEGER NOT NULL," +
+			" fuel_rate REAL NOT NULL," +
+			" fuel_volume REAL NOT NULL," +
+			" fuel_cost REAL NOT NULL," +
+			" odometer REAL NOT NULL," +
+			" topped_up INTEGER NOT NULL," +
+			" notes TEXT" +
+			");";
 	
 	// Empty constructor
 	public Fillup () {
@@ -39,6 +53,46 @@ public class Fillup {
 		_fillup_notes    = notes;
 	}
 
+
+	public int get_fillup_id() {
+		return _fillup_id;
+	}
+
+	public int get_car_id() {
+		return _car_id;
+	}
+
+	public Date get_fillup_date() {
+		return _fillup_date;
+	}
+
+	public double get_fillup_fuel_rate() {
+		return _fillup_fuel_rate;
+	}
+
+	public double get_fillup_fuel_volume() {
+		return _fillup_fuel_volume;
+	}
+
+	public double get_fillup_fuel_cost() {
+		return _fillup_fuel_cost;
+	}
+
+	public double get_fillup_odometer_reading() {
+		return _fillup_odometer_reading;
+	}
+
+	public boolean is_fillup_topped_up() {
+		return _fillup_topped_up;
+	}
+
+	public String get_fillup_notes() {
+		return _fillup_notes;
+	}
+
+	public Location get_fillup_location() {
+		return _fillup_location;
+	}
 
 	//Static methods
 	public static double get_distance (Fillup currentFillup, Fillup previousFillup) {

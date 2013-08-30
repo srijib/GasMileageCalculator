@@ -3,7 +3,7 @@
  */
 package com.kulkarni.gasmileagecalculator;
 
-import com.kulkarni.gasmileagecalculator.data.FillupVector;
+import com.kulkarni.gasmileagecalculator.data.FillupData;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,7 +34,7 @@ public class HistoryFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.history_fragment, container, false);
 		
 		history = (ListView) rootView.findViewById(R.id.history_list);
-		adapter = new HistoryAdapter(getActivity(), new FillupVector());
+		adapter = new HistoryAdapter(getActivity(), new FillupData());
 		history.setAdapter(adapter);
 		
 		return rootView;

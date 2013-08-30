@@ -2,7 +2,7 @@ package com.kulkarni.gasmileagecalculator;
 
 import java.util.Locale;
 
-import com.kulkarni.gasmileagecalculator.data.FillupVector;
+import com.kulkarni.gasmileagecalculator.data.FillupData;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +29,7 @@ public class MainActivity extends FragmentActivity {
         
         // Initialize the fillup vector
         @SuppressWarnings("unused")
-		FillupVector fv = new FillupVector();
+		FillupData fv = new FillupData();
     }
 
 

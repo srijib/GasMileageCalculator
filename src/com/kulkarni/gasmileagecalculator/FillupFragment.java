@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.kulkarni.gasmileagecalculator.data.Fillup;
-import com.kulkarni.gasmileagecalculator.data.FillupVector;
+import com.kulkarni.gasmileagecalculator.data.FillupData;
 import com.kulkarni.gasmileagecalculator.helpers.TextValidator;
 
 import android.annotation.SuppressLint;
@@ -242,7 +242,7 @@ public class FillupFragment extends Fragment implements
 		
 		Fillup fillup = new Fillup(mDate, fuelRate, fuelVolume, odometer, !notToppedUp);
 		
-		if (FillupVector.fillups.add(fillup)) {
+		if (FillupData.fillups.add(fillup)) {
 			Toast.makeText(getActivity(), "Fillup added", Toast.LENGTH_SHORT).show();
 			
 			ListView historylist = (ListView) getActivity().findViewById(R.id.history_list);
