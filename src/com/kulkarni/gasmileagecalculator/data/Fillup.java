@@ -3,6 +3,7 @@ package com.kulkarni.gasmileagecalculator.data;
 import java.util.Date;
 
 import android.location.Location;
+import android.provider.BaseColumns;
 
 public class Fillup {
 	private static final String TAG = Fillup.class.getSimpleName();
@@ -19,19 +20,31 @@ public class Fillup {
 	private String   _fillup_notes;
 	private Location _fillup_location;
 	
-	public static final String tableName = "tblFillup";
+	public static final String TABLE = "tblFillup";
+	public static final String C_ID = BaseColumns._ID;
+	public static final String C_LAST_MODIFIED = "lastModified";
+	public static final String C_CAR_ID = "carId";
+	public static final String C_FILLUP_DATE = "fillupDate";
+	public static final String C_FUEL_RATE = "fuelRate";
+	public static final String C_FUEL_VOLUME = "fuelVolume";
+	public static final String C_FUEL_COST = "fuelCost";
+	public static final String C_ODOMETER = "odometer";
+	public static final String C_TOPPED_UP = "toppedUp";
+	public static final String C_NOTES = "notes";
+	public static final String C_LOCATION = "fillupLocation";
+	
 	public static final String createTable =
-			"CREATE TABLE " + tableName +
-			" _id INTEGER PRIMARY KEY AUTOINCREMENT," +
-			" _modified_time INTEGER NOT NULL" +
-			" car_id INTEGER NOT NULL," +
-			" fillup_date INTEGER NOT NULL," +
-			" fuel_rate REAL NOT NULL," +
-			" fuel_volume REAL NOT NULL," +
-			" fuel_cost REAL NOT NULL," +
-			" odometer REAL NOT NULL," +
-			" topped_up INTEGER NOT NULL," +
-			" notes TEXT" +
+			"CREATE TABLE " + TABLE + "(" +
+			C_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			C_LAST_MODIFIED + " INTEGER NOT NULL, " +
+			C_CAR_ID + " INTEGER NOT NULL, " +
+			C_FILLUP_DATE + " INTEGER NOT NULL, " +
+			C_FUEL_RATE + " REAL NOT NULL, " +
+			C_FUEL_VOLUME + " REAL NOT NULL, " +
+			C_FUEL_COST + " REAL NOT NULL, " +
+			C_ODOMETER + " REAL NOT NULL, " +
+			C_TOPPED_UP + " INTEGER NOT NULL, " +
+			C_NOTES + " TEXT" +
 			");";
 	
 	// Empty constructor

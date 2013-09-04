@@ -2,7 +2,11 @@ package com.kulkarni.gasmileagecalculator.data;
 
 import java.util.Vector;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.kulkarni.gasmileagecalculator.data.Fillup;
+import com.kulkarni.gasmileagecalculator.helpers.DbOpenHelper;
 
 public class FillupData {
 	public static Vector<Fillup> fillups;
@@ -78,5 +82,10 @@ public class FillupData {
 			return fillups.get(position);
 		else
 			return null;
+	}
+	
+	public void addFillup (Fillup newFillup, Context context) {
+		DbOpenHelper dbHelper = new DbOpenHelper(context);
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
 	}
 }

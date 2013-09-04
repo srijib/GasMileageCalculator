@@ -3,10 +3,12 @@
  */
 package com.kulkarni.gasmileagecalculator.helpers;
 
+import com.kulkarni.gasmileagecalculator.data.Fillup;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * @author Amey Kulkarni
@@ -15,28 +17,27 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DbOpenHelper extends SQLiteOpenHelper {
 
 	private static final String TAG       = DbOpenHelper.class.getSimpleName();
-	private static final String dbName    = "refueler.db";
-	private static final int    dbVersion = 1;
+	public  static final String dbName    = "refueler.db";
+	public  static final int    dbVersion = 1;
 	
-	public DbOpenHelper(Context context, String name, CursorFactory factory,
-			int version) {
-		super(context, name, factory, version);
-		// TODO Auto-generated constructor stub
+	public DbOpenHelper(Context context) {
+		super(context, dbName, null, dbVersion);
 	}
 	
 	@Override
-	public void onCreate(SQLiteDatabase arg0) {
-		createTables();
+	public void onCreate(SQLiteDatabase db) {
+		String sql = Fillup.createTable;
+		
+		Log.d(TAG + "::onCreate", "sql: " + sql);
+		
+		db.execSQL(sql);
 	}
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-		
+		db.execSQL("DROP TABLE IF EXISTS " + Fillup.TABLE);
+		Log.d(TAG + "::onUpgrade", "dropped table " + Fillup.TABLE);
+		this.onCreate(db);
 	}
 	
-	private void createTables() {
-		// TODO Auto-generated method stub
-		
-	}
 }
