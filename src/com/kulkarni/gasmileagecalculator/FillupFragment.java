@@ -57,7 +57,6 @@ public class FillupFragment extends Fragment implements
 
 		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
-			// TODO Auto-generated method stub
 			Calendar c = Calendar.getInstance();
 			c.set(year, month, day);
 			
@@ -92,6 +91,8 @@ public class FillupFragment extends Fragment implements
 	private EditText fuelVolume;
 	private EditText odometer;
 	private CheckBox checkTopFillup;
+	
+	private FillupData fd;
 
 	/**
 	 * 
@@ -103,6 +104,8 @@ public class FillupFragment extends Fragment implements
 	@Override
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fillup_fragment, container, false);
+		
+		fd = new FillupData();
 		
 		Calendar c = Calendar.getInstance();
 		mDate = new Date (c.getTimeInMillis());
@@ -122,7 +125,6 @@ public class FillupFragment extends Fragment implements
 			
 			@Override
 			public void validate(EditText edit, String text) {
-				// TODO Auto-generated method stub
 				if (!TextUtils.isEmpty(text) && Double.valueOf(text) <= 0.0) {
 					edit.setError("Fuel Price must be greater than zero");
 					errorRate = true;
@@ -137,7 +139,6 @@ public class FillupFragment extends Fragment implements
 			
 			@Override
 			public void validate(EditText edit, String text) {
-				// TODO Auto-generated method stub
 				errorVol = true;
 				
 				if (!TextUtils.isEmpty(text) && Double.valueOf(text) <= 0.0)
@@ -185,7 +186,6 @@ public class FillupFragment extends Fragment implements
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		
 		case R.id.textView_fillup_date:
@@ -206,7 +206,6 @@ public class FillupFragment extends Fragment implements
 	}
 
 	private void onEnterFillupClicked(View v) {
-		// TODO Auto-generated method stub
 		fuelRate = (EditText) getActivity().findViewById(R.id.edit_fuel_rate);
 		fuelVolume  = (EditText) getActivity().findViewById(R.id.edit_fuel_volume);
 		odometer  = (EditText) getActivity().findViewById(R.id.edit_odometer);
@@ -243,6 +242,7 @@ public class FillupFragment extends Fragment implements
 		Fillup fillup = new Fillup(mDate, fuelRate, fuelVolume, odometer, !notToppedUp);
 		
 		if (FillupData.fillups.add(fillup)) {
+			fd.addFillup(fillup, getActivity());
 			Toast.makeText(getActivity(), "Fillup added", Toast.LENGTH_SHORT).show();
 			
 			ListView historylist = (ListView) getActivity().findViewById(R.id.history_list);

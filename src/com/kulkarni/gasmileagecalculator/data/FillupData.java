@@ -152,5 +152,8 @@ public class FillupData {
 	public void addFillup (Fillup newFillup, Context context) {
 		DbOpenHelper dbHelper = new DbOpenHelper(context);
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		
+		db.close();
+		dbHelper.close();
 	}
 }
