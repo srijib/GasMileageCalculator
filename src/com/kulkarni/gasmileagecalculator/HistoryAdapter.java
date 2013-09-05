@@ -9,6 +9,7 @@ import com.kulkarni.gasmileagecalculator.data.FillupData;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,17 @@ import android.widget.TextView;
 
 public class HistoryAdapter extends BaseAdapter {
 	
+	private static final String TAG = HistoryAdapter.class.getSimpleName();
+
 	private Activity activity;
 	private FillupData fv;
 	private static LayoutInflater inflater = null;
-	
-	public HistoryAdapter (Activity a, FillupData fillupList) {
+
+	public HistoryAdapter(Activity a, FillupData fillupList) {
 		activity = a;
-		fv 		 = fillupList;
-		inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		fv = fillupList;
+		inflater = (LayoutInflater) activity
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	@Override
@@ -44,43 +48,57 @@ public class HistoryAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view =  convertView;
+		View view = convertView;
 		if (convertView == null) {
 			view = inflater.inflate(R.layout.history_adapter, null);
 		}
-		
-		TextView textDate    = (TextView) view.findViewById(R.id.txt_date);
-		TextView textMPG     = (TextView) view.findViewById(R.id.txt_mileage);
+
+		TextView textDate = (TextView) view.findViewById(R.id.txt_date);
+		TextView textMPG = (TextView) view.findViewById(R.id.txt_mileage);
 		TextView textVehicle = (TextView) view.findViewById(R.id.txt_vehicle);
-		TextView textVolume  = (TextView) view.findViewById(R.id.txt_fuel_volume);
-		TextView textRate    = (TextView) view.findViewById(R.id.txt_fuel_rate);
-		TextView textCost    = (TextView) view.findViewById(R.id.txt_fillup_cost);
-		
-		Fillup fillup         = fv.getItem (position);
-		Fillup previousFillup = fv.getItem (position - 1);
-		
+		TextView textVolume = (TextView) view
+				.findViewById(R.id.txt_fuel_volume);
+		TextView textRate = (TextView) view.findViewById(R.id.txt_fuel_rate);
+		TextView textCost = (TextView) view.findViewById(R.id.txt_fillup_cost);
+
+		Fillup fillup = fv.getItem(position);
+		Fillup previousFillup = fv.getItem(position - 1);
+
 		SimpleDateFormat sdf = (SimpleDateFormat) DateFormat.getDateInstance();
 		textDate.setText(sdf.format(fillup.get_fillup_date()));
-		
-		textVehicle.setText(activity.getResources().getString(R.string.vehicle_nickname).toUpperCase(Locale.US));
-		textVolume.setText(String.format("%.2f gal", fillup.get_fillup_fuel_volume()));
-		textRate.setText(String.format("$ %.2f/gal", fillup.get_fillup_fuel_rate()));
+
+		textVehicle.setText(activity.getResources()
+				.getString(R.string.vehicle_nickname).toUpperCase(Locale.US));
+		textVolume.setText(String.format("%.2f gal",
+				fillup.get_fillup_fuel_volume()));
+		textRate.setText(String.format("$ %.2f/gal",
+				fillup.get_fillup_fuel_rate()));
 		textCost.setText(String.format("$ %.2f", fillup.get_fillup_fuel_cost()));
-		
+
 		if (previousFillup != null && fv.size() > 1) {
-			double mileage = Fillup.get_point_mileage(fillup, previousFillup);
-			double average = fv.get_overall_mileage();
-			
-			textMPG.setText(String.format("%.2f mpg", mileage));
-			if (mileage > average)	textMPG.setTextColor(activity.getResources().getColor(R.color.fillup_above_avg));
-			else if (mileage < average)	textMPG.setTextColor(activity.getResources().getColor(R.color.fillup_below_avg));
-			else	textMPG.setTextColor(activity.getResources().getColor(R.color.fillup_avg));
-		}
-		else {
+			try {
+				double mileage = fv.get_mileage_for_fillup(position);
+				double average = FillupData.getAverage_mileage();
+
+				textMPG.setText(String.format("%.2f mpg", mileage));
+				if (mileage > average)
+					textMPG.setTextColor(activity.getResources().getColor(
+							R.color.fillup_above_avg));
+				else if (mileage < average)
+					textMPG.setTextColor(activity.getResources().getColor(
+							R.color.fillup_below_avg));
+				else
+					textMPG.setTextColor(activity.getResources().getColor(
+							R.color.fillup_avg));
+			} catch (Exception e) {
+				Log.e(TAG, e.getMessage());
+			}
+		} else {
 			textMPG.setText("N/A");
-			textMPG.setTextColor(activity.getResources().getColor(android.R.color.darker_gray));
+			textMPG.setTextColor(activity.getResources().getColor(
+					android.R.color.darker_gray));
 		}
-		
+
 		return view;
 	}
 

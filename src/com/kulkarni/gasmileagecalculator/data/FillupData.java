@@ -11,6 +11,27 @@ import com.kulkarni.gasmileagecalculator.helpers.DbOpenHelper;
 public class FillupData {
 	public static Vector<Fillup> fillups;
 	
+	private static double average_mileage = 0.0;
+	public static double getAverage_mileage() {
+		return average_mileage;
+	}
+
+	public static double getTotal_distance() {
+		return total_distance;
+	}
+
+	public static double getTotal_volume() {
+		return total_volume;
+	}
+
+	public static double getTotal_used_volume() {
+		return total_used_volume;
+	}
+
+	private static double total_distance = 0.0;
+	private static double total_volume = 0.0;
+	private static double total_used_volume = 0.0;
+	
 	public FillupData() {
 		// TODO Auto-generated constructor stub
 		if (fillups == null) {
@@ -22,13 +43,13 @@ public class FillupData {
 		return fillups.size();
 	}
 	
-	public double get_total_distance () {
+	public void calculate_total_distance () {
 		Fillup lastFillup  = fillups.lastElement();
 		Fillup firstFillup = fillups.firstElement();
-		return (lastFillup.get_fillup_odometer_reading() - firstFillup.get_fillup_odometer_reading());
+		total_distance = lastFillup.get_fillup_odometer_reading() - firstFillup.get_fillup_odometer_reading();
 	}
 	
-	public double get_total_fuel_volume () {
+	public void calculate_total_fuel_volume () {
 		int size = fillups.size();
 		double volume = 0.0;
 		
@@ -36,10 +57,10 @@ public class FillupData {
 			volume += fillups.elementAt(i).get_fillup_fuel_volume();
 		}
 		
-		return volume;
+		total_volume = volume;
 	}
 	
-	public double get_total_used_fuel_volume () {
+	public void calculate_total_used_fuel_volume () {
 		int size = fillups.size();
 		double volume = 0.0;
 		
@@ -47,14 +68,14 @@ public class FillupData {
 			volume += fillups.elementAt(i).get_fillup_fuel_volume();
 		}
 		
-		return volume;
+		total_used_volume = volume;
 	}
 	
-	public double get_overall_mileage () {
-		return (get_total_distance() / get_total_used_fuel_volume());
+	public void calculate_overall_mileage () {
+		average_mileage = total_distance / total_used_volume;
 	}
 	
-	public double get_mileage_for_fillup (int position) {
+	public double get_mileage_for_fillup (int position) throws Exception {
 		int size = fillups.size();
 		
 		if (position < 0 || position > size) {
@@ -64,8 +85,8 @@ public class FillupData {
 			return -1.0;
 		}
 		
-		Fillup currentFillup  = fillups.elementAt(i);
-		Fillup previousFillup = fillups.elementAt(i - 1);
+		Fillup currentFillup  = fillups.elementAt(position);
+		Fillup previousFillup = fillups.elementAt(position - 1);
 		
 		double distance = 0.0;
 		
@@ -80,7 +101,7 @@ public class FillupData {
 			for (int i = position - 1; i >= 0; i--) {
 				Fillup thisFillup = fillups.elementAt(i);
 				
-				volume += fillups.elementAt(i + 1);
+				volume += fillups.elementAt(i + 1).get_fillup_fuel_volume();
 				
 				if (thisFillup.is_fillup_topped_up()) {
 					distance = Fillup.get_distance (currentFillup, thisFillup);
@@ -94,6 +115,8 @@ public class FillupData {
 		if (!currentFillup.is_fillup_topped_up()) {
 			return -3.0;
 		}
+		
+		return Double.NaN;
 	}
 	
 	public double get_total_cost () {
