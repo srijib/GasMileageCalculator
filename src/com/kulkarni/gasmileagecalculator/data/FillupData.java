@@ -54,6 +54,48 @@ public class FillupData {
 		return (get_total_distance() / get_total_used_fuel_volume());
 	}
 	
+	public double get_mileage_for_fillup (int position) {
+		int size = fillups.size();
+		
+		if (position < 0 || position > size) {
+			throw new Exception ("position is not within the size of the fillup vector");
+		}
+		else if (position == 0) {
+			return -1.0;
+		}
+		
+		Fillup currentFillup  = fillups.elementAt(i);
+		Fillup previousFillup = fillups.elementAt(i - 1);
+		
+		double distance = 0.0;
+		
+		if (currentFillup.is_fillup_topped_up() && previousFillup.is_fillup_topped_up()) {
+			distance = Fillup.get_distance (currentFillup, previousFillup);
+			return (distance / currentFillup.get_fillup_fuel_volume ());
+		}
+		
+		if (currentFillup.is_fillup_topped_up() && !previousFillup.is_fillup_topped_up()) {
+			double volume = 0.0;
+			
+			for (int i = position - 1; i >= 0; i--) {
+				Fillup thisFillup = fillups.elementAt(i);
+				
+				volume += fillups.elementAt(i + 1);
+				
+				if (thisFillup.is_fillup_topped_up()) {
+					distance = Fillup.get_distance (currentFillup, thisFillup);
+					return (distance / volume);
+				}
+			}
+			
+			return -2.0;
+		}
+		
+		if (!currentFillup.is_fillup_topped_up()) {
+			return -3.0;
+		}
+	}
+	
 	public double get_total_cost () {
 		int size = fillups.size();
 		double cost = 0.0;
