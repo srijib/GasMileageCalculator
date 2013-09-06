@@ -105,7 +105,7 @@ public class FillupFragment extends Fragment implements
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fillup_fragment, container, false);
 		
-		fd = new FillupData();
+		fd = new FillupData(getActivity());
 		
 		Calendar c = Calendar.getInstance();
 		mDate = new Date (c.getTimeInMillis());
@@ -242,7 +242,7 @@ public class FillupFragment extends Fragment implements
 		Fillup fillup = new Fillup(mDate, fuelRate, fuelVolume, odometer, !notToppedUp);
 		
 		if (FillupData.fillups.add(fillup)) {
-			fd.addFillup(fillup, getActivity());
+			fd.addFillup(fillup);
 			Toast.makeText(getActivity(), "Fillup added", Toast.LENGTH_SHORT).show();
 			
 			ListView historylist = (ListView) getActivity().findViewById(R.id.history_list);

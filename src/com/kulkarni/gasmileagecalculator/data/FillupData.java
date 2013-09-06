@@ -2,6 +2,7 @@ package com.kulkarni.gasmileagecalculator.data;
 
 import java.util.Vector;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -10,6 +11,8 @@ import com.kulkarni.gasmileagecalculator.helpers.DbOpenHelper;
 
 public class FillupData {
 	public static Vector<Fillup> fillups;
+	Context context;
+	DbOpenHelper dbHelper;
 	
 	private static double average_mileage = 0.0;
 	public static double getAverage_mileage() {
@@ -32,8 +35,10 @@ public class FillupData {
 	private static double total_volume = 0.0;
 	private static double total_used_volume = 0.0;
 	
-	public FillupData() {
-		// TODO Auto-generated constructor stub
+	public FillupData(Context context) {
+		this.context = context;
+		dbHelper = new DbOpenHelper(context);
+		
 		if (fillups == null) {
 			fillups = new Vector<Fillup>();
 		}
@@ -149,11 +154,20 @@ public class FillupData {
 			return null;
 	}
 	
-	public void addFillup (Fillup newFillup, Context context) {
-		DbOpenHelper dbHelper = new DbOpenHelper(context);
+	public void addFillup (Fillup newFillup) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		
+		ContentValues values = new ContentValues();
+		values.put(Fillup.C_CAR_ID, newFillup.get_car_id());
+		values.put(Fillup.C_FILLUP_DATE, newFillup.get_fillup_date().getTime());
+		values.put(Fillup.C_FUEL_COST, newFillup.get_fillup_fuel_cost());
+		values.put(Fillup.C_FUEL_RATE, newFillup.get_fillup_fuel_rate());
+		values.put(Fillup.C_FUEL_VOLUME, newFillup.get_fillup_fuel_volume());
+		values.put(Fillup.C_ODOMETER, newFillup.get_fillup_odometer_reading());
+		values.put(Fillup.C_TOPPED_UP, newFillup.is_fillup_topped_up() ? 1 : 0);
+		
+		db.insertOrThrow(Fillup.TABLE, null, values);
+		
 		db.close();
-		dbHelper.close();
 	}
 }
