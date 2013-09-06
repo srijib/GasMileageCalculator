@@ -21,24 +21,25 @@ public class HistoryAdapter extends BaseAdapter {
 	private static final String TAG = HistoryAdapter.class.getSimpleName();
 
 	private Activity activity;
-	private FillupData fv;
+	private RefuelerApplication app;
+	private FillupData fillups;
 	private static LayoutInflater inflater = null;
 
-	public HistoryAdapter(Activity a, FillupData fillupList) {
+	public HistoryAdapter(Activity a) {
 		activity = a;
-		fv = fillupList;
-		inflater = (LayoutInflater) activity
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		app = (RefuelerApplication) activity.getApplication();
+		fillups = app.fillups;
 	}
 
 	@Override
 	public int getCount() {
-		return fv.size();
+		return fillups.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return fv.getItem(position);
+		return fillups.getItem(position);
 	}
 
 	@Override
@@ -61,8 +62,8 @@ public class HistoryAdapter extends BaseAdapter {
 		TextView textRate = (TextView) view.findViewById(R.id.txt_fuel_rate);
 		TextView textCost = (TextView) view.findViewById(R.id.txt_fillup_cost);
 
-		Fillup fillup = fv.getItem(position);
-		Fillup previousFillup = fv.getItem(position - 1);
+		Fillup fillup = fillups.getItem(position);
+		Fillup previousFillup = fillups.getItem(position - 1);
 
 		SimpleDateFormat sdf = (SimpleDateFormat) DateFormat.getDateInstance();
 		textDate.setText(sdf.format(fillup.get_fillup_date()));
@@ -75,9 +76,9 @@ public class HistoryAdapter extends BaseAdapter {
 				fillup.get_fillup_fuel_rate()));
 		textCost.setText(String.format("$ %.2f", fillup.get_fillup_fuel_cost()));
 
-		if (previousFillup != null && fv.size() > 1) {
+		if (previousFillup != null && fillups.size() > 1) {
 			try {
-				double mileage = fv.get_mileage_for_fillup(position);
+				double mileage = fillups.get_mileage_for_fillup(position);
 				double average = FillupData.getAverage_mileage();
 
 				textMPG.setText(String.format("%.2f mpg", mileage));

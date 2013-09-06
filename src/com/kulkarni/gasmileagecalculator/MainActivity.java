@@ -13,9 +13,11 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
 public class MainActivity extends FragmentActivity {
+	public static final String TAG = MainActivity.class.getSimpleName();
 	
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	ViewPager mViewPager;
+	RefuelerApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +29,7 @@ public class MainActivity extends FragmentActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         
-        // Initialize the fillup vector
-        @SuppressWarnings("unused")
-		FillupData fv = new FillupData();
+        app = (RefuelerApplication) getApplication();
     }
 
 

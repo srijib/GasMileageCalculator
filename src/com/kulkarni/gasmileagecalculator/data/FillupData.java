@@ -15,6 +15,19 @@ public class FillupData {
 	DbOpenHelper dbHelper;
 	
 	private static double average_mileage = 0.0;
+	private static double total_distance = 0.0;
+	private static double total_volume = 0.0;
+	private static double total_used_volume = 0.0;
+	
+	public FillupData(Context context) {
+		this.context = context;
+		dbHelper = new DbOpenHelper(context);
+		
+		if (fillups == null) {
+			fillups = new Vector<Fillup>();
+		}
+	}
+	
 	public static double getAverage_mileage() {
 		return average_mileage;
 	}
@@ -29,19 +42,6 @@ public class FillupData {
 
 	public static double getTotal_used_volume() {
 		return total_used_volume;
-	}
-
-	private static double total_distance = 0.0;
-	private static double total_volume = 0.0;
-	private static double total_used_volume = 0.0;
-	
-	public FillupData(Context context) {
-		this.context = context;
-		dbHelper = new DbOpenHelper(context);
-		
-		if (fillups == null) {
-			fillups = new Vector<Fillup>();
-		}
 	}
 	
 	public int size() {

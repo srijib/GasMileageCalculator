@@ -3,8 +3,7 @@
  */
 package com.kulkarni.gasmileagecalculator;
 
-import com.kulkarni.gasmileagecalculator.data.FillupData;
-
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,7 +16,10 @@ import android.widget.ListView;
  *
  */
 public class HistoryFragment extends Fragment {
+	
+	private static final String TAG = HistoryFragment.class.getSimpleName();
 
+	Activity activity;
 	ListView history;
 	HistoryAdapter adapter;
 	
@@ -33,8 +35,9 @@ public class HistoryFragment extends Fragment {
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.history_fragment, container, false);
 		
+		activity = getActivity();
 		history = (ListView) rootView.findViewById(R.id.history_list);
-		adapter = new HistoryAdapter(getActivity(), new FillupData());
+		adapter = new HistoryAdapter(activity);
 		history.setAdapter(adapter);
 		
 		return rootView;
