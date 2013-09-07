@@ -13,6 +13,7 @@ import com.kulkarni.gasmileagecalculator.data.FillupData;
 import com.kulkarni.gasmileagecalculator.helpers.TextValidator;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -78,6 +79,11 @@ public class FillupFragment extends Fragment implements
 		}
 	}
 
+	private static final String TAG = FillupData.class.getSimpleName();
+	private Activity activity;
+	private RefuelerApplication app;
+	private FillupData fd;
+	
 	public Date mDate;
 	public boolean notToppedUp = false;
 	boolean errorRate = false;
@@ -92,8 +98,6 @@ public class FillupFragment extends Fragment implements
 	private EditText odometer;
 	private CheckBox checkTopFillup;
 	
-	private FillupData fd;
-
 	/**
 	 * 
 	 */
@@ -105,7 +109,9 @@ public class FillupFragment extends Fragment implements
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fillup_fragment, container, false);
 		
-		fd = new FillupData(getActivity());
+		activity = getActivity();
+		app = (RefuelerApplication) activity.getApplication();
+		fd = app.getFillups();
 		
 		Calendar c = Calendar.getInstance();
 		mDate = new Date (c.getTimeInMillis());
@@ -206,9 +212,9 @@ public class FillupFragment extends Fragment implements
 	}
 
 	private void onEnterFillupClicked(View v) {
-		fuelRate = (EditText) getActivity().findViewById(R.id.edit_fuel_rate);
-		fuelVolume  = (EditText) getActivity().findViewById(R.id.edit_fuel_volume);
-		odometer  = (EditText) getActivity().findViewById(R.id.edit_odometer);
+		fuelRate = (EditText) activity.findViewById(R.id.edit_fuel_rate);
+		fuelVolume  = (EditText) activity.findViewById(R.id.edit_fuel_volume);
+		odometer  = (EditText) activity.findViewById(R.id.edit_odometer);
 		
 		String text;
 		
@@ -231,7 +237,7 @@ public class FillupFragment extends Fragment implements
 		}
 		
 		if (errorOdo || errorRate || errorVol) {
-			Toast.makeText(getActivity(), "Make sure the entered values are valid", Toast.LENGTH_LONG).show();
+			Toast.makeText(activity, "Make sure the entered values are valid", Toast.LENGTH_LONG).show();
 			return;
 		}
 		
@@ -243,21 +249,20 @@ public class FillupFragment extends Fragment implements
 		
 		if (FillupData.fillups.add(fillup)) {
 			fd.addFillup(fillup);
-			Toast.makeText(getActivity(), "Fillup added", Toast.LENGTH_SHORT).show();
+			Toast.makeText(activity, "Fillup added", Toast.LENGTH_SHORT).show();
 			
-			ListView historylist = (ListView) getActivity().findViewById(R.id.history_list);
+			ListView historylist = (ListView) activity.findViewById(R.id.history_list);
 			((HistoryAdapter) historylist.getAdapter()).notifyDataSetChanged ();
 			
 			clearForm ();
 		}
 		else {
-			Toast.makeText(getActivity(), "Error adding fillup", Toast.LENGTH_LONG).show();
+			Toast.makeText(activity, "Error adding fillup", Toast.LENGTH_LONG).show();
 			return;
 		}
 	}
 
 	private void clearForm() {
-		// TODO Auto-generated method stub
 		fuelRate.getText().clear();
 		fuelVolume.getText().clear();
 		odometer.getText().clear();
@@ -272,7 +277,6 @@ public class FillupFragment extends Fragment implements
 	}
 
 	private void onCheckedTop(View v) {
-		// TODO Auto-generated method stub
 		checkTopFillup = (CheckBox) v;
 		
 		notToppedUp = !notToppedUp;
