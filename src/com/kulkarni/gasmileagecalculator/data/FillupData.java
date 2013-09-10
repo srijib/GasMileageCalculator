@@ -2,7 +2,6 @@ package com.kulkarni.gasmileagecalculator.data;
 
 import java.util.Vector;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -147,7 +146,6 @@ public class FillupData {
 	}
 
 	public Fillup getItem(int position) {
-		// TODO Auto-generated method stub
 		if (position >= 0)
 			return fillups.get(position);
 		else
@@ -157,16 +155,7 @@ public class FillupData {
 	public void addFillup (Fillup newFillup) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		
-		ContentValues values = new ContentValues();
-		values.put(Fillup.C_CAR_ID, newFillup.get_car_id());
-		values.put(Fillup.C_FILLUP_DATE, newFillup.get_fillup_date().getTime());
-		values.put(Fillup.C_FUEL_COST, newFillup.get_fillup_fuel_cost());
-		values.put(Fillup.C_FUEL_RATE, newFillup.get_fillup_fuel_rate());
-		values.put(Fillup.C_FUEL_VOLUME, newFillup.get_fillup_fuel_volume());
-		values.put(Fillup.C_ODOMETER, newFillup.get_fillup_odometer_reading());
-		values.put(Fillup.C_TOPPED_UP, newFillup.is_fillup_topped_up() ? 1 : 0);
-		
-		db.insertOrThrow(Fillup.TABLE, null, values);
+		newFillup.addToDb (db);
 		
 		db.close();
 	}

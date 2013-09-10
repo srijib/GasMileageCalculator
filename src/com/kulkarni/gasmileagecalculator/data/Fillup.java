@@ -2,8 +2,13 @@ package com.kulkarni.gasmileagecalculator.data;
 
 import java.util.Date;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.provider.BaseColumns;
+import android.util.Log;
+
+import java.util.Calendar;
 
 public class Fillup {
 	private static final String TAG = Fillup.class.getSimpleName();
@@ -119,5 +124,26 @@ public class Fillup {
 		
 		double distance = get_distance(currentFillup, previousFillup);
 		return (distance / currentFillup._fillup_fuel_volume);
+	}
+
+	public void addToDb(SQLiteDatabase db) {
+		
+		ContentValues values = new ContentValues();
+		values.put(C_CAR_ID, _car_id);
+		values.put(C_FILLUP_DATE, _fillup_date.getTime());
+		values.put(C_FUEL_COST, _fillup_fuel_cost);
+		values.put(C_FUEL_RATE, _fillup_fuel_rate);
+		values.put(C_FUEL_VOLUME, _fillup_fuel_volume);
+		values.put(C_ODOMETER, _fillup_odometer_reading);
+		values.put(C_TOPPED_UP, _fillup_topped_up ? 1 : 0);
+		
+		Calendar c = Calendar.getInstance();
+		Date modifiedDate = c.getTime();
+		
+		values.put(C_LAST_MODIFIED, modifiedDate.getTime());
+		
+		db.insertOrThrow(Fillup.TABLE, null, values);
+		
+		Log.d(TAG, "Added new fillup");
 	}
 }
