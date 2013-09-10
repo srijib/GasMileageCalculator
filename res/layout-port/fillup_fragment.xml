@@ -70,7 +70,7 @@
         android:drawablePadding="8dp"
         android:padding="8dp"
         android:text="@string/button_fillup_text"
-        android:minHeight="40dp" />
+        android:minHeight="32dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -86,12 +86,10 @@
             android:text="@string/label_vehicle_text"
             android:gravity="center_vertical"/>
 
-        <TextView
+        <Spinner
             android:id="@+id/textVehicleName"
-            style="?android:attr/spinnerStyle"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="@string/vehicle_nickname" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

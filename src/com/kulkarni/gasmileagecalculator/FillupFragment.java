@@ -23,11 +23,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,47 +41,6 @@ import android.widget.Toast;
 public class FillupFragment extends Fragment implements
 	View.OnClickListener
 {
-	
-	@SuppressLint("ValidFragment")
-	public class DatePickerFragment extends DialogFragment implements
-			DatePickerDialog.OnDateSetListener {
-		
-		@Override
-		public Dialog onCreateDialog (Bundle savedInstanceState) {
-			Long curDate = getArguments().getLong("setDate");
-			
-			final Calendar c = Calendar.getInstance();
-			c.setTimeInMillis(curDate);
-			int year  = c.get(Calendar.YEAR);
-			int month = c.get(Calendar.MONTH);
-			int day   = c.get(Calendar.DAY_OF_MONTH);
-			
-			return new DatePickerDialog(getActivity(), this, year, month, day);
-		}
-
-		@Override
-		public void onDateSet(DatePicker view, int year, int month, int day) {
-			Calendar c = Calendar.getInstance();
-			c.set(year, month, day);
-			
-			if (isDateInFuture(c)) {
-				Toast.makeText(getActivity(), "Date cannot be in the future", Toast.LENGTH_SHORT).show();
-				return;
-			}
-			
-			mDate = new Date (c.getTimeInMillis());
-			
-			TextView dateTextView = (TextView) getActivity().findViewById(R.id.textView_fillup_date);
-			dateTextView.setText(getDateString());
-		}
-		
-		private boolean isDateInFuture (Calendar c) {
-			Calendar today = Calendar.getInstance();
-			
-			return today.before(c);
-		}
-	}
-
 	private static final String TAG = FillupData.class.getSimpleName();
 	private Activity activity;
 	private RefuelerApplication app;
@@ -91,7 +53,7 @@ public class FillupFragment extends Fragment implements
 	boolean errorOdo = false;
 	
 	private TextView dateTextView;
-	private TextView vehicleName;
+	private Spinner vehicleName;
 	private Button   enterFillup;
 	private EditText fuelRate;
 	private EditText fuelVolume;
@@ -120,8 +82,11 @@ public class FillupFragment extends Fragment implements
 		dateTextView.setText(getDateString ());
 		dateTextView.setOnClickListener(this);
 		
-		vehicleName = (TextView) rootView.findViewById(R.id.textVehicleName);
+		vehicleName = (Spinner) rootView.findViewById(R.id.textVehicleName);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity, R.array.vehicles, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		vehicleName.setOnClickListener(this);
+		vehicleName.setAdapter(adapter);
 		
 		enterFillup = (Button) rootView.findViewById(R.id.button_enter_fillup);
 		enterFillup.setOnClickListener(this);
@@ -281,6 +246,48 @@ public class FillupFragment extends Fragment implements
 		
 		notToppedUp = !notToppedUp;
 		checkTopFillup.setChecked(notToppedUp);
+	}
+	
+	
+	
+	@SuppressLint("ValidFragment")
+	public class DatePickerFragment extends DialogFragment implements
+			DatePickerDialog.OnDateSetListener {
+		
+		@Override
+		public Dialog onCreateDialog (Bundle savedInstanceState) {
+			Long curDate = getArguments().getLong("setDate");
+			
+			final Calendar c = Calendar.getInstance();
+			c.setTimeInMillis(curDate);
+			int year  = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH);
+			int day   = c.get(Calendar.DAY_OF_MONTH);
+			
+			return new DatePickerDialog(getActivity(), this, year, month, day);
+		}
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int month, int day) {
+			Calendar c = Calendar.getInstance();
+			c.set(year, month, day);
+			
+			if (isDateInFuture(c)) {
+				Toast.makeText(getActivity(), "Date cannot be in the future", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			
+			mDate = new Date (c.getTimeInMillis());
+			
+			TextView dateTextView = (TextView) getActivity().findViewById(R.id.textView_fillup_date);
+			dateTextView.setText(getDateString());
+		}
+		
+		private boolean isDateInFuture (Calendar c) {
+			Calendar today = Calendar.getInstance();
+			
+			return today.before(c);
+		}
 	}
 	
 }

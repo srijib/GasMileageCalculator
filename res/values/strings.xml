@@ -22,5 +22,8 @@
         <item >History</item>
     </string-array>
     <string name="label_date">Fillup Date:</string>
+    <string-array name="vehicles">
+        <item >Default</item>
+    </string-array>
 
 </resources>
