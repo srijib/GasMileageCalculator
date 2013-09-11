@@ -83,9 +83,9 @@ public class FillupFragment extends Fragment implements
 		dateTextView.setOnClickListener(this);
 		
 		vehicleName = (Spinner) rootView.findViewById(R.id.textVehicleName);
+		//vehicleName.setOnClickListener(this);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity, R.array.vehicles, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		vehicleName.setOnClickListener(this);
 		vehicleName.setAdapter(adapter);
 		
 		enterFillup = (Button) rootView.findViewById(R.id.button_enter_fillup);

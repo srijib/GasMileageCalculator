@@ -24,6 +24,7 @@
     <string name="label_date">Fillup Date:</string>
     <string-array name="vehicles">
         <item >Default</item>
+        <item >MB E350</item>
     </string-array>
 
 </resources>

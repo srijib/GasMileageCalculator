@@ -1,96 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:isScrollContainer="true"
-    android:orientation="vertical"
-    android:padding="12dp" >
-
-    <TextView
-        android:id="@+id/textView_fillup_date"
-        style="?android:attr/spinnerStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="@string/textView_fillup_date"
-        android:minHeight="40dp" />
-
-    <EditText
-        android:id="@+id/edit_fuel_rate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/fuel_price_hint"
-        android:inputType="numberDecimal"
-        android:minHeight="40dp" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/edit_fuel_volume"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/fuel_volume_hint"
-        android:inputType="numberDecimal"
-        android:minHeight="40dp" />
-
-    <EditText
-        android:id="@+id/edit_odometer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/odometer_hint"
-        android:inputType="numberDecimal"
-        android:minHeight="40dp" />
-
-    <CheckBox
-        android:id="@+id/checkBox_fillup_topped"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawablePadding="8dp"
-        android:text="@string/checkBox_topped_up_text"
-        android:minHeight="40dp" />
-
-    <EditText
-        android:id="@+id/label_notes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/notes_text_hint"
-        android:padding="8dp"
-        android:minHeight="40dp" />
-
-    <Button
-        android:id="@+id/button_enter_fillup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:drawableRight="@android:drawable/ic_menu_send"
-        android:drawablePadding="8dp"
-        android:padding="8dp"
-        android:text="@string/button_fillup_text"
-        android:minHeight="32dp" />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:minHeight="40dp" >
+        android:isScrollContainer="true"
+        android:orientation="vertical"
+        android:padding="12dp" >
 
         <TextView
-            android:id="@+id/label_vehicle"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:padding="4dp"
-            android:text="@string/label_vehicle_text"
-            android:gravity="center_vertical"/>
+            android:id="@+id/textView_fillup_date"
+            style="?android:attr/spinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:padding="8dp"
+            android:text="@string/textView_fillup_date" />
 
-        <Spinner
-            android:id="@+id/textVehicleName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edit_fuel_rate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/fuel_price_hint"
+            android:inputType="numberDecimal"
+            android:minHeight="40dp" >
 
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/edit_fuel_volume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/fuel_volume_hint"
+            android:inputType="numberDecimal"
+            android:minHeight="40dp" />
+
+        <EditText
+            android:id="@+id/edit_odometer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/odometer_hint"
+            android:inputType="numberDecimal"
+            android:minHeight="40dp" />
+
+        <CheckBox
+            android:id="@+id/checkBox_fillup_topped"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:minHeight="40dp"
+            android:text="@string/checkBox_topped_up_text" />
+
+        <EditText
+            android:id="@+id/label_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/notes_text_hint"
+            android:minHeight="40dp"
+            android:padding="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:padding="8dp" >
+
+            <TextView
+                android:id="@+id/label_vehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:padding="4dp"
+                android:text="@string/label_vehicle_text" />
+
+            <Spinner
+                android:id="@+id/textVehicleName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_enter_fillup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:minHeight="32dp"
+            android:padding="8dp"
+            android:text="@string/button_fillup_text" />
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
