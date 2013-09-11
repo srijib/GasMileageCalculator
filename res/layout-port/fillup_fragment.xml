@@ -13,7 +13,7 @@
         <TextView
             android:id="@+id/textView_fillup_date"
             style="?android:attr/spinnerStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="40dp"
             android:padding="8dp"
@@ -81,7 +81,7 @@
 
             <Spinner
                 android:id="@+id/textVehicleName"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
@@ -89,7 +89,6 @@
             android:id="@+id/button_enter_fillup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
             android:minHeight="32dp"
             android:padding="8dp"
             android:text="@string/button_fillup_text" />

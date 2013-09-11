@@ -24,7 +24,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -177,9 +176,9 @@ public class FillupFragment extends Fragment implements
 	}
 
 	private void onEnterFillupClicked(View v) {
-		fuelRate = (EditText) activity.findViewById(R.id.edit_fuel_rate);
+		/*fuelRate = (EditText) activity.findViewById(R.id.edit_fuel_rate);
 		fuelVolume  = (EditText) activity.findViewById(R.id.edit_fuel_volume);
-		odometer  = (EditText) activity.findViewById(R.id.edit_odometer);
+		odometer  = (EditText) activity.findViewById(R.id.edit_odometer);*/
 		
 		String text;
 		
@@ -251,7 +250,7 @@ public class FillupFragment extends Fragment implements
 	
 	
 	@SuppressLint("ValidFragment")
-	public class DatePickerFragment extends DialogFragment implements
+	private class DatePickerFragment extends DialogFragment implements
 			DatePickerDialog.OnDateSetListener {
 		
 		@Override
