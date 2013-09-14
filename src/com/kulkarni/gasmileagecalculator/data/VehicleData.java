@@ -1,10 +1,17 @@
 package com.kulkarni.gasmileagecalculator.data;
 
+import android.content.Context;
 import android.provider.BaseColumns;
 
 public class VehicleData {
 
 	private static final String TAG = VehicleData.class.getSimpleName();
+	
+	private Context context;
+	
+	public VehicleData(Context context) {
+		this.context = context;
+	}
 	
 	public class Vehicle {
 		
