@@ -3,10 +3,10 @@
  */
 package com.kulkarni.gasmileagecalculator;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import com.kulkarni.gasmileagecalculator.data.Fillup;
 import com.kulkarni.gasmileagecalculator.data.FillupData;
@@ -14,7 +14,6 @@ import com.kulkarni.gasmileagecalculator.data.Vehicle;
 import com.kulkarni.gasmileagecalculator.data.VehicleData;
 import com.kulkarni.gasmileagecalculator.helpers.TextValidator;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -27,7 +26,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -42,7 +42,7 @@ import android.widget.Toast;
  *
  */
 public class FillupFragment extends Fragment implements
-	View.OnClickListener
+	View.OnClickListener, OnItemSelectedListener
 {
 	private static final String TAG = FillupData.class.getSimpleName();
 	private Activity activity;
@@ -50,7 +50,7 @@ public class FillupFragment extends Fragment implements
 	private FillupData fd;
 	private VehicleData vd;
 	
-	public Date mDate;
+	public static Date mDate;
 	public boolean notToppedUp = false;
 	public int car_id;
 	
@@ -97,10 +97,7 @@ public class FillupFragment extends Fragment implements
 		
 		vehicleName = (Spinner) rootView.findViewById(R.id.textVehicleName);
 		vehicleName.setAdapter(spinnerAdapter);
-		
-		/*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity, R.array.vehicles, android.R.layout.simple_spinner_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		vehicleName.setAdapter(adapter);*/
+		vehicleName.setOnItemSelectedListener(this);
 		
 		enterFillup = (Button) rootView.findViewById(R.id.button_enter_fillup);
 		enterFillup.setOnClickListener(this);
@@ -154,8 +151,8 @@ public class FillupFragment extends Fragment implements
 	}
 
 	
-	private CharSequence getDateString () {
-		SimpleDateFormat sdf = (SimpleDateFormat) DateFormat.getDateInstance();
+	private static CharSequence getDateString () {
+		SimpleDateFormat sdf = new SimpleDateFormat("E, MMM d, y", Locale.getDefault());
 		return sdf.format(mDate);
 	}
 	
@@ -181,9 +178,6 @@ public class FillupFragment extends Fragment implements
 			onCheckedTop (v);
 			break;
 		
-		case R.id.textVehicleName:
-			break;
-			
 		case R.id.button_enter_fillup:
 			onEnterFillupClicked (v);
 			break;
@@ -191,10 +185,6 @@ public class FillupFragment extends Fragment implements
 	}
 
 	private void onEnterFillupClicked(View v) {
-		/*fuelRate = (EditText) activity.findViewById(R.id.edit_fuel_rate);
-		fuelVolume  = (EditText) activity.findViewById(R.id.edit_fuel_volume);
-		odometer  = (EditText) activity.findViewById(R.id.edit_odometer);*/
-		
 		String text;
 		
 		text = fuelRate.getText().toString();
@@ -262,10 +252,21 @@ public class FillupFragment extends Fragment implements
 		checkTopFillup.setChecked(notToppedUp);
 	}
 	
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		Cursor c = (Cursor) parent.getItemAtPosition(position);
+		car_id = c.getInt(c.getColumnIndexOrThrow(Vehicle.C_ID));
+		Toast.makeText(activity, "Selected vehicle id: " + Integer.toString(car_id), Toast.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
-	@SuppressLint("ValidFragment")
-	private class DatePickerFragment extends DialogFragment implements
+	public static class DatePickerFragment extends DialogFragment implements
 			DatePickerDialog.OnDateSetListener {
 		
 		@Override
