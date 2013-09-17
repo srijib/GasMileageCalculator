@@ -17,6 +17,18 @@
      limitations under the License.
 -->
 <resources>
+    <!-- Holo Colors, defined for backward compatibility -->
+    <color name="holo_blue_light">#33b5e5</color>
+    <color name="holo_blue_dark">#0099cc</color>
+    <color name="holo_purple_light">#aa66cc</color>
+    <color name="holo_purple_dark">#9933cc</color>
+    <color name="holo_green_light">#99cc00</color>
+    <color name="holo_green_dark">#669900</color>
+    <color name="holo_orange_light">#ffbb33</color>
+    <color name="holo_orange_dark">#ff8800</color>
+    <color name="holo_red_light">#ff4444</color>
+    <color name="holo_red_dark">#cc0000</color>
+    
     <color name="fillup_above_avg">#669900</color>
     <color name="fillup_avg">#ff8800</color>
     <color name="fillup_below_avg">#cc0000</color>
