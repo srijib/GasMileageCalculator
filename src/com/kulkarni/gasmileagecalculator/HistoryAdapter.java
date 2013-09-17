@@ -72,9 +72,9 @@ public class HistoryAdapter extends BaseAdapter {
 				.getString(R.string.vehicle_nickname).toUpperCase(Locale.US));
 		textVolume.setText(String.format("%.2f gal",
 				fillup.get_fillup_fuel_volume()));
-		textRate.setText(String.format("$ %.2f/gal",
+		textRate.setText(String.format("$%.2f/gal",
 				fillup.get_fillup_fuel_rate()));
-		textCost.setText(String.format("$ %.2f", fillup.get_fillup_fuel_cost()));
+		textCost.setText(String.format("$%.2f", fillup.get_fillup_fuel_cost()));
 
 		if (previousFillup != null && fillups.size() > 1) {
 			try {

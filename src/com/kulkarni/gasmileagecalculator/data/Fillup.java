@@ -3,6 +3,7 @@ package com.kulkarni.gasmileagecalculator.data;
 import java.util.Date;
 
 import android.content.ContentValues;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.provider.BaseColumns;
@@ -142,8 +143,12 @@ public class Fillup {
 		
 		values.put(C_LAST_MODIFIED, modifiedDate.getTime());
 		
-		db.insertOrThrow(Fillup.TABLE, null, values);
-		
-		Log.d(TAG, "Added new fillup");
+		try {
+			db.insertOrThrow(Fillup.TABLE, null, values);
+			Log.d(TAG, "Added new fillup");
+		} catch (SQLException e) {
+			Log.e(TAG, e.getMessage());
+			e.printStackTrace();
+		}
 	}
 }

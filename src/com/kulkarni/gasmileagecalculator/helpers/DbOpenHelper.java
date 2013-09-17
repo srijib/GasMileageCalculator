@@ -4,7 +4,8 @@
 package com.kulkarni.gasmileagecalculator.helpers;
 
 import com.kulkarni.gasmileagecalculator.data.Fillup;
-import com.kulkarni.gasmileagecalculator.data.VehicleData.Vehicle;
+import com.kulkarni.gasmileagecalculator.data.Vehicle;
+import com.kulkarni.gasmileagecalculator.data.VehicleData;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,7 +20,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
 	private static final String TAG       = DbOpenHelper.class.getSimpleName();
 	public  static final String dbName    = "refueler.db";
-	public  static final int    dbVersion = 2;
+	public  static final int    dbVersion = 3;
 	
 	public DbOpenHelper(Context context) {
 		super(context, dbName, null, dbVersion);
@@ -34,6 +35,8 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 		sql = Vehicle.createTable;
 		Log.d(TAG + "::onCreate", "sql: " + sql);
 		db.execSQL(sql);
+		
+		VehicleData.insertDefaultVehicle(db);
 	}
 	
 	@Override

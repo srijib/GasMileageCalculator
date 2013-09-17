@@ -1,68 +1,30 @@
 package com.kulkarni.gasmileagecalculator.data;
 
+import com.kulkarni.gasmileagecalculator.helpers.DbOpenHelper;
+
 import android.content.Context;
-import android.provider.BaseColumns;
+import android.database.sqlite.SQLiteDatabase;
 
 public class VehicleData {
 
 	private static final String TAG = VehicleData.class.getSimpleName();
-	
+
 	private Context context;
-	
+	private DbOpenHelper dbHelper;
+
 	public VehicleData(Context context) {
 		this.context = context;
+		dbHelper = new DbOpenHelper(context);
+	}
+
+	public void insertVehicle(Vehicle vehicle) {
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		vehicle.insert(db);
+		db.close();
 	}
 	
-	public class Vehicle {
-		
-		private final String TAG = Vehicle.class.getSimpleName();
-		
-		// Members
-		private int    vehicle_id;
-		private int    year;
-		private String make;
-		private String model;
-		private String nickname;
-		
-		
-		// Table
-		public static final String TABLE           = "tblVehicle";
-		public static final String C_ID            = BaseColumns._ID;
-		public static final String C_LAST_MODIFIED = "lastModified";
-		public static final String C_YEAR          = "year";
-		public static final String C_MAKE          = "make";
-		public static final String C_MODEL         = "model";
-		public static final String C_NICKNAME      = "nickname";
-		
-		public static final String createTable =
-				"CREATE TABLE " + TABLE + " (" +
-				C_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "  +
-				C_LAST_MODIFIED + " INTEGER NOT NULL, " +
-				C_YEAR + " INTEGER, " +
-				C_MAKE + " TEXT NOT NULL, " +
-				C_MODEL + " TEXT NOT NULL, " +
-				C_NICKNAME + " TEXT" +
-				")";
-		
-		
-		public int getVehicle_id() {
-			return vehicle_id;
-		}
-		
-		public int getYear() {
-			return year;
-		}
-		
-		public String getMake() {
-			return make;
-		}
-		
-		public String getModel() {
-			return model;
-		}
-		
-		public String getNickname() {
-			return nickname;
-		}
+	public static void insertDefaultVehicle (SQLiteDatabase db) {
+		Vehicle defaultVehicle = Vehicle.getDefaultVehicle();
+		defaultVehicle.insert(db);
 	}
 }

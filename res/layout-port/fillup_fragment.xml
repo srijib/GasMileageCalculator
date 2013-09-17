@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:isScrollContainer="true"
         android:orientation="vertical"
         android:padding="12dp" >
 
@@ -15,7 +15,7 @@
             style="?android:attr/spinnerStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="40dp"
+            android:minHeight="32dp"
             android:padding="8dp"
             android:text="@string/textView_fillup_date" />
 
@@ -26,7 +26,7 @@
             android:ems="10"
             android:hint="@string/fuel_price_hint"
             android:inputType="numberDecimal"
-            android:minHeight="40dp" >
+            android:minHeight="32dp" >
 
             <requestFocus />
         </EditText>
@@ -38,7 +38,7 @@
             android:ems="10"
             android:hint="@string/fuel_volume_hint"
             android:inputType="numberDecimal"
-            android:minHeight="40dp" />
+            android:minHeight="32dp" />
 
         <EditText
             android:id="@+id/edit_odometer"
@@ -47,14 +47,14 @@
             android:ems="10"
             android:hint="@string/odometer_hint"
             android:inputType="numberDecimal"
-            android:minHeight="40dp" />
+            android:minHeight="32dp" />
 
         <CheckBox
             android:id="@+id/checkBox_fillup_topped"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="8dp"
-            android:minHeight="40dp"
+            android:minHeight="32dp"
             android:text="@string/checkBox_topped_up_text" />
 
         <EditText
@@ -62,13 +62,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/notes_text_hint"
-            android:minHeight="40dp"
+            android:minHeight="32dp"
             android:padding="8dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="40dp"
+            android:minHeight="32dp"
             android:padding="8dp" >
 
             <TextView
