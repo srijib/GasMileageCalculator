@@ -10,15 +10,19 @@ import java.util.Date;
 
 import com.kulkarni.gasmileagecalculator.data.Fillup;
 import com.kulkarni.gasmileagecalculator.data.FillupData;
+import com.kulkarni.gasmileagecalculator.data.Vehicle;
+import com.kulkarni.gasmileagecalculator.data.VehicleData;
 import com.kulkarni.gasmileagecalculator.helpers.TextValidator;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,15 +48,18 @@ public class FillupFragment extends Fragment implements
 	private Activity activity;
 	private RefuelerApplication app;
 	private FillupData fd;
+	private VehicleData vd;
 	
 	public Date mDate;
 	public boolean notToppedUp = false;
+	public int car_id;
+	
 	boolean errorRate = false;
 	boolean errorVol = false;
 	boolean errorOdo = false;
 	
 	private TextView dateTextView;
-	private Spinner vehicleName;
+	private Spinner  vehicleName;
 	private Button   enterFillup;
 	private EditText fuelRate;
 	private EditText fuelVolume;
@@ -73,6 +80,7 @@ public class FillupFragment extends Fragment implements
 		activity = getActivity();
 		app = (RefuelerApplication) activity.getApplication();
 		fd = app.getFillups();
+		vd = app.getVehicles();
 		
 		Calendar c = Calendar.getInstance();
 		mDate = new Date (c.getTimeInMillis());
@@ -81,11 +89,18 @@ public class FillupFragment extends Fragment implements
 		dateTextView.setText(getDateString ());
 		dateTextView.setOnClickListener(this);
 		
+		String[] adapterColumns = new String[] { Vehicle.C_NICKNAME };
+		int[]    adapterViewIds = new int[] { android.R.id.text1 };
+		Cursor nicknames = vd.getVehicleNicknames();
+		SimpleCursorAdapter spinnerAdapter = new SimpleCursorAdapter (activity, android.R.layout.simple_spinner_item, nicknames, adapterColumns, adapterViewIds, 0);
+		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
 		vehicleName = (Spinner) rootView.findViewById(R.id.textVehicleName);
-		//vehicleName.setOnClickListener(this);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity, R.array.vehicles, android.R.layout.simple_spinner_item);
+		vehicleName.setAdapter(spinnerAdapter);
+		
+		/*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity, R.array.vehicles, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		vehicleName.setAdapter(adapter);
+		vehicleName.setAdapter(adapter);*/
 		
 		enterFillup = (Button) rootView.findViewById(R.id.button_enter_fillup);
 		enterFillup.setOnClickListener(this);
