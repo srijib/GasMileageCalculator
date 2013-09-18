@@ -50,7 +50,7 @@ public class FillupData {
 	public void calculate_total_distance () {
 		Fillup lastFillup  = fillups.lastElement();
 		Fillup firstFillup = fillups.firstElement();
-		total_distance = lastFillup.get_fillup_odometer_reading() - firstFillup.get_fillup_odometer_reading();
+		total_distance = lastFillup.get_odometer_reading() - firstFillup.get_odometer_reading();
 	}
 	
 	public void calculate_total_fuel_volume () {
@@ -58,7 +58,7 @@ public class FillupData {
 		double volume = 0.0;
 		
 		for (int i = 0; i < size; i++) {
-			volume += fillups.elementAt(i).get_fillup_fuel_volume();
+			volume += fillups.elementAt(i).get_fuel_volume();
 		}
 		
 		total_volume = volume;
@@ -69,7 +69,7 @@ public class FillupData {
 		double volume = 0.0;
 		
 		for (int i = 1; i < size; i++) {
-			volume += fillups.elementAt(i).get_fillup_fuel_volume();
+			volume += fillups.elementAt(i).get_fuel_volume();
 		}
 		
 		total_used_volume = volume;
@@ -96,7 +96,7 @@ public class FillupData {
 		
 		if (currentFillup.is_fillup_topped_up() && previousFillup.is_fillup_topped_up()) {
 			distance = Fillup.get_distance (currentFillup, previousFillup);
-			return (distance / currentFillup.get_fillup_fuel_volume ());
+			return (distance / currentFillup.get_fuel_volume ());
 		}
 		
 		if (currentFillup.is_fillup_topped_up() && !previousFillup.is_fillup_topped_up()) {
@@ -105,7 +105,7 @@ public class FillupData {
 			for (int i = position - 1; i >= 0; i--) {
 				Fillup thisFillup = fillups.elementAt(i);
 				
-				volume += fillups.elementAt(i + 1).get_fillup_fuel_volume();
+				volume += fillups.elementAt(i + 1).get_fuel_volume();
 				
 				if (thisFillup.is_fillup_topped_up()) {
 					distance = Fillup.get_distance (currentFillup, thisFillup);
@@ -128,7 +128,7 @@ public class FillupData {
 		double cost = 0.0;
 		
 		for (int i = 0; i < size; i++) {
-			cost += fillups.elementAt(i).get_fillup_fuel_cost();
+			cost += fillups.elementAt(i).get_fuel_cost();
 		}
 		
 		return cost;
@@ -139,7 +139,7 @@ public class FillupData {
 		double cost = 0.0;
 		
 		for (int i = 1; i < size; i++) {
-			cost += (fillups.elementAt(i).get_fillup_fuel_volume() * fillups.elementAt(i - 1).get_fillup_fuel_cost());
+			cost += (fillups.elementAt(i).get_fuel_volume() * fillups.elementAt(i - 1).get_fuel_cost());
 		}
 		
 		return cost;

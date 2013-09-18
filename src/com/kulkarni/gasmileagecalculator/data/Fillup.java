@@ -15,16 +15,17 @@ public class Fillup {
 	private static final String TAG = Fillup.class.getSimpleName();
 	
 	// private members
-	private int      _fillup_id;
+	private int      _id;
 	private int      _car_id;
-	private Date     _fillup_date;
-	private double   _fillup_fuel_rate;
-	private double   _fillup_fuel_volume;
-	private double   _fillup_fuel_cost;
-	private double   _fillup_odometer_reading;
-	private boolean  _fillup_topped_up;
-	private String   _fillup_notes;
-	private Location _fillup_location;
+	private Date     _date;
+	private double   _fuel_rate;
+	private double   _fuel_volume;
+	private double   _fuel_cost;
+	private double   _fuel_mileage;
+	private double   _odometer_reading;
+	private boolean  _topped_up;
+	private String   _notes;
+	private Location _location;
 	
 	public static final String TABLE = "tblFillup";
 	public static final String C_ID = BaseColumns._ID;
@@ -58,23 +59,23 @@ public class Fillup {
 	}
 	
 	public Fillup (Date date, double fuelRate, double fuelVolume, double odometer, boolean toppedUp) {
-		_fillup_date        = date;
-		_fillup_fuel_rate   = fuelRate;
-		_fillup_fuel_volume = fuelVolume;
-		_fillup_fuel_cost   = fuelRate * fuelVolume;
-		_fillup_odometer_reading = odometer;
-		_fillup_topped_up   = toppedUp;
+		_date        = date;
+		_fuel_rate   = fuelRate;
+		_fuel_volume = fuelVolume;
+		_fuel_cost   = fuelRate * fuelVolume;
+		_odometer_reading = odometer;
+		_topped_up   = toppedUp;
 	}
 	
 	public Fillup (Date date, double fuelRate, double fuelVolume, double odometer, boolean toppedUp, Location location, String notes) {
 		this (date, fuelRate, fuelVolume, odometer, toppedUp);
-		_fillup_location = location;
-		_fillup_notes    = notes;
+		_location = location;
+		_notes    = notes;
 	}
 
 
 	public int get_fillup_id() {
-		return _fillup_id;
+		return _id;
 	}
 
 	public int get_car_id() {
@@ -82,61 +83,61 @@ public class Fillup {
 	}
 
 	public Date get_fillup_date() {
-		return _fillup_date;
+		return _date;
 	}
 
-	public double get_fillup_fuel_rate() {
-		return _fillup_fuel_rate;
+	public double get_fuel_rate() {
+		return _fuel_rate;
 	}
 
-	public double get_fillup_fuel_volume() {
-		return _fillup_fuel_volume;
+	public double get_fuel_volume() {
+		return _fuel_volume;
 	}
 
-	public double get_fillup_fuel_cost() {
-		return _fillup_fuel_cost;
+	public double get_fuel_cost() {
+		return _fuel_cost;
 	}
 
-	public double get_fillup_odometer_reading() {
-		return _fillup_odometer_reading;
+	public double get_odometer_reading() {
+		return _odometer_reading;
 	}
 
 	public boolean is_fillup_topped_up() {
-		return _fillup_topped_up;
+		return _topped_up;
 	}
 
-	public String get_fillup_notes() {
-		return _fillup_notes;
+	public String get_notes() {
+		return _notes;
 	}
 
 	public Location get_fillup_location() {
-		return _fillup_location;
+		return _location;
 	}
 
 	//Static methods
 	public static double get_distance (Fillup currentFillup, Fillup previousFillup) {
-		return (currentFillup._fillup_odometer_reading - previousFillup._fillup_odometer_reading);
+		return (currentFillup._odometer_reading - previousFillup._odometer_reading);
 	}
 	
 	public static double get_point_mileage (Fillup currentFillup, Fillup previousFillup) {
 		
-		if (currentFillup._fillup_topped_up == false)
+		if (currentFillup._topped_up == false)
 			return -1.0;
 		
 		double distance = get_distance(currentFillup, previousFillup);
-		return (distance / currentFillup._fillup_fuel_volume);
+		return (distance / currentFillup._fuel_volume);
 	}
 
 	public void addToDb(SQLiteDatabase db) {
 		
 		ContentValues values = new ContentValues();
 		values.put(C_CAR_ID, _car_id);
-		values.put(C_FILLUP_DATE, _fillup_date.getTime());
-		values.put(C_FUEL_COST, _fillup_fuel_cost);
-		values.put(C_FUEL_RATE, _fillup_fuel_rate);
-		values.put(C_FUEL_VOLUME, _fillup_fuel_volume);
-		values.put(C_ODOMETER, _fillup_odometer_reading);
-		values.put(C_TOPPED_UP, _fillup_topped_up ? 1 : 0);
+		values.put(C_FILLUP_DATE, _date.getTime());
+		values.put(C_FUEL_COST, _fuel_cost);
+		values.put(C_FUEL_RATE, _fuel_rate);
+		values.put(C_FUEL_VOLUME, _fuel_volume);
+		values.put(C_ODOMETER, _odometer_reading);
+		values.put(C_TOPPED_UP, _topped_up ? 1 : 0);
 		
 		Calendar c = Calendar.getInstance();
 		Date modifiedDate = c.getTime();
