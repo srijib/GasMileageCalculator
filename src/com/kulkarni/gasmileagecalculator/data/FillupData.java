@@ -3,6 +3,7 @@ package com.kulkarni.gasmileagecalculator.data;
 import java.util.Vector;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.kulkarni.gasmileagecalculator.data.Fillup;
@@ -158,5 +159,15 @@ public class FillupData {
 		newFillup.addToDb (db);
 		
 		db.close();
+	}
+	
+	public Cursor getFillups () {
+		String[] columns = { Fillup.C_ID, 		 Fillup.C_CAR_ID, 	 Fillup.C_FILLUP_DATE,
+							 Fillup.C_FUEL_COST, Fillup.C_FUEL_RATE, Fillup.C_FUEL_VOLUME,
+							 Fillup.C_TOPPED_UP };
+		
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		Cursor c = db.query(Fillup.TABLE, columns, null, null, null, null, Fillup.C_FILLUP_DATE + " DESC");
+		return c;
 	}
 }
