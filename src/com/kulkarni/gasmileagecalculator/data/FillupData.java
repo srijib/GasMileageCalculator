@@ -161,8 +161,13 @@ public class FillupData {
 		db.close();
 	}
 
-	public Cursor getFillupCursor() {
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
+	public Cursor getFillups () {
+		String[] columns = { Fillup.C_ID, 		 Fillup.C_CAR_ID, 	 Fillup.C_FILLUP_DATE,
+							 Fillup.C_FUEL_COST, Fillup.C_FUEL_RATE, Fillup.C_FUEL_VOLUME,
+							 Fillup.C_TOPPED_UP };
 		
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		Cursor c = db.query(Fillup.TABLE, columns, null, null, null, null, Fillup.C_FILLUP_DATE + " DESC");
+		return c;
 	}
 }
