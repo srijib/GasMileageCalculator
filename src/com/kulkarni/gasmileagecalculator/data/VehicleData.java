@@ -37,4 +37,17 @@ public class VehicleData {
 		
 		return c;
 	}
+
+	public String getVehicleNickname(int vehicle_id) {
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		
+		String[] columns = { Vehicle.C_NICKNAME };
+		String[] whereArgs = new String[] { Integer.toString(vehicle_id) };
+		Cursor c = db.query(Vehicle.TABLE, columns, Vehicle.C_ID + " = ?", whereArgs, null, null, null);
+		
+		int nicknameIndex = c.getColumnIndexOrThrow(Vehicle.C_NICKNAME);
+		String nickname = c.getString(nicknameIndex);
+		
+		return nickname;
+	}
 }

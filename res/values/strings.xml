@@ -26,5 +26,8 @@
         <item >Default</item>
         <item >MB E350</item>
     </string-array>
+    
+    <string name="volume_unit">gal</string>
+    <string name="currency_symbol">$</string>
 
 </resources>
