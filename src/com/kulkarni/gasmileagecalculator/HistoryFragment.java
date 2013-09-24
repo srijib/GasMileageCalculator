@@ -47,7 +47,7 @@ public class HistoryFragment extends Fragment {
 		
 		history = (ListView) rootView.findViewById(R.id.history_list);
 		
-		adapter = new HistoryCursorAdapter(activity, fd.getFillupCursor(), 0);
+		adapter = new HistoryCursorAdapter(activity, fd.getFillups(), 0);
 		history.setAdapter(adapter);
 		
 		return rootView;

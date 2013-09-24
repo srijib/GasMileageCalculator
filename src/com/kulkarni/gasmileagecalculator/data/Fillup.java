@@ -82,6 +82,10 @@ public class Fillup {
 		return _car_id;
 	}
 
+	public void set_car_id(int _car_id) {
+		this._car_id = _car_id;
+	}
+
 	public Date get_fillup_date() {
 		return _date;
 	}

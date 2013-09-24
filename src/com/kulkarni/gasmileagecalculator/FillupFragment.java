@@ -21,11 +21,13 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
@@ -215,15 +217,16 @@ public class FillupFragment extends Fragment implements
 		double odometer   = Double.parseDouble(this.odometer.getText().toString());
 		
 		Fillup fillup = new Fillup(mDate, fuelRate, fuelVolume, odometer, !notToppedUp);
+		fillup.set_car_id(car_id);
 		
 		if (FillupData.fillups.add(fillup)) {
 			fd.addFillup(fillup);
 			Toast.makeText(activity, "Fillup added", Toast.LENGTH_SHORT).show();
-			
-			ListView historylist = (ListView) activity.findViewById(R.id.history_list);
-			((HistoryAdapter) historylist.getAdapter()).notifyDataSetChanged ();
-			
 			clearForm ();
+			
+			ListView history = (ListView) activity.findViewById(R.id.history_list);
+			CursorAdapter adapter = (CursorAdapter) history.getAdapter();
+			adapter.notifyDataSetChanged();
 		}
 		else {
 			Toast.makeText(activity, "Error adding fillup", Toast.LENGTH_LONG).show();
