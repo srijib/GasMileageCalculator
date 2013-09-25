@@ -17,9 +17,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
-public class HistoryCursorAdapter extends CursorAdapter {
+public class HistoryCursorAdapter extends CursorAdapter implements ListAdapter {
 
 	private static final String TAG = HistoryCursorAdapter.class
 			.getSimpleName();

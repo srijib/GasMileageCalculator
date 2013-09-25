@@ -7,7 +7,7 @@ import com.kulkarni.gasmileagecalculator.data.FillupData;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +18,7 @@ import android.widget.ListView;
  * @author Amey Kulkarni
  * 
  */
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends ListFragment {
 
 	private static final String TAG = HistoryFragment.class.getSimpleName();
 
@@ -46,10 +46,8 @@ public class HistoryFragment extends Fragment {
 				false);
 		
 		try {
-			history = (ListView) rootView.findViewById(R.id.history_list);
-
 			adapter = new HistoryCursorAdapter(activity, app, fd.getFillups());
-			history.setAdapter(adapter);
+			setListAdapter(adapter);
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
 		}
