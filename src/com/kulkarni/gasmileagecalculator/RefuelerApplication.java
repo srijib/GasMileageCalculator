@@ -2,12 +2,13 @@ package com.kulkarni.gasmileagecalculator;
 
 import com.kulkarni.gasmileagecalculator.data.FillupData;
 import com.kulkarni.gasmileagecalculator.data.VehicleData;
+import com.kulkarni.gasmileagecalculator.helpers.DbOpenHelper;
 
 import android.app.Application;
-import android.content.Context;
 
 public class RefuelerApplication extends Application {
 
+	DbOpenHelper dbHelper;
 	FillupData fillups;
 	VehicleData vehicles;
 	
@@ -16,10 +17,13 @@ public class RefuelerApplication extends Application {
 		// TODO Auto-generated method stub
 		super.onCreate();
 		
-		Context context = this;
-		
-		fillups  = new FillupData(context);
-		vehicles = new VehicleData(context); 
+		dbHelper = new DbOpenHelper(getApplicationContext());
+		fillups  = new FillupData(getApplicationContext(), dbHelper);
+		vehicles = new VehicleData(getApplicationContext(), dbHelper); 
+	}
+	
+	public DbOpenHelper getDbHelper() {
+		return dbHelper;
 	}
 
 	public FillupData getFillups() {
@@ -29,4 +33,5 @@ public class RefuelerApplication extends Application {
 	public VehicleData getVehicles() {
 		return vehicles;
 	}
+	
 }

@@ -13,9 +13,9 @@ public class VehicleData {
 	private Context context;
 	private DbOpenHelper dbHelper;
 
-	public VehicleData(Context context) {
+	public VehicleData(Context context, DbOpenHelper dbHelper) {
 		this.context = context;
-		dbHelper = new DbOpenHelper(this.context);
+		this.dbHelper = dbHelper;
 	}
 
 	public void insertVehicle(Vehicle vehicle) {

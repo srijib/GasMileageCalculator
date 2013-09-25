@@ -2,8 +2,6 @@ package com.kulkarni.gasmileagecalculator;
 
 import java.util.Locale;
 
-import com.kulkarni.gasmileagecalculator.data.FillupData;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
