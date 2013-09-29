@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import com.kulkarni.gasmileagecalculator.data.Fillup;
 import com.kulkarni.gasmileagecalculator.data.FillupData;
+import com.kulkarni.gasmileagecalculator.data.VehicleData;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,13 +24,15 @@ public class HistoryAdapter extends BaseAdapter {
 	private Activity activity;
 	private RefuelerApplication app;
 	private FillupData fillups;
+	private VehicleData vehicles;
 	private static LayoutInflater inflater = null;
 
 	public HistoryAdapter(Activity a) {
 		activity = a;
 		inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		app = (RefuelerApplication) activity.getApplication();
-		fillups = app.fillups;
+		fillups = app.getFillups();
+		vehicles = app.getVehicles();
 	}
 
 	@Override
@@ -68,8 +71,6 @@ public class HistoryAdapter extends BaseAdapter {
 		SimpleDateFormat sdf = (SimpleDateFormat) DateFormat.getDateInstance();
 		textDate.setText(sdf.format(fillup.get_fillup_date()));
 
-		textVehicle.setText(activity.getResources()
-				.getString(R.string.vehicle_nickname).toUpperCase(Locale.US));
 		textVolume.setText(String.format("%.2f gal",
 				fillup.get_fuel_volume()));
 		textRate.setText(String.format("$%.2f/gal",
@@ -99,7 +100,14 @@ public class HistoryAdapter extends BaseAdapter {
 			textMPG.setTextColor(activity.getResources().getColor(
 					android.R.color.darker_gray));
 		}
-
+		
+		
+		String nickname = vehicles.getVehicleNickname(fillup.get_car_id());
+		if (!nickname.equals(null))
+			textVehicle.setText(nickname.toUpperCase(Locale.getDefault()));
+		else
+			textVehicle.setText(activity.getResources().getString(R.string.vehicle_nickname).toUpperCase(Locale.getDefault()));
+		
 		return view;
 	}
 

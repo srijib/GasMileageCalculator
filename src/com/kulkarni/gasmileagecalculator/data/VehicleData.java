@@ -2,19 +2,17 @@ package com.kulkarni.gasmileagecalculator.data;
 
 import com.kulkarni.gasmileagecalculator.helpers.DbOpenHelper;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class VehicleData {
 
 	private static final String TAG = VehicleData.class.getSimpleName();
 
-	private Context context;
 	private DbOpenHelper dbHelper;
 
-	public VehicleData(Context context, DbOpenHelper dbHelper) {
-		this.context = context;
+	public VehicleData(DbOpenHelper dbHelper) {
 		this.dbHelper = dbHelper;
 	}
 
@@ -38,15 +36,26 @@ public class VehicleData {
 		return c;
 	}
 
-	public String getVehicleNickname(int vehicle_id) {
+	public String getVehicleNickname (int vehicle_id) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		String nickname = null;
 		
 		String[] columns = { Vehicle.C_NICKNAME };
 		String[] whereArgs = new String[] { Integer.toString(vehicle_id) };
-		Cursor c = db.query(Vehicle.TABLE, columns, Vehicle.C_ID + " = ?", whereArgs, null, null, null);
 		
-		int nicknameIndex = c.getColumnIndexOrThrow(Vehicle.C_NICKNAME);
-		String nickname = c.getString(nicknameIndex);
+		try {
+			Cursor c = db.query(Vehicle.TABLE, columns, Vehicle.C_ID + "=?", whereArgs, null, null, null);
+		
+			int nicknameIndex = c.getColumnIndexOrThrow(Vehicle.C_NICKNAME);
+
+			c.moveToFirst();
+			
+			nickname = c.getString(nicknameIndex);
+		
+			c.close();
+		} catch (Exception e) {
+			Log.e(TAG, e.getMessage());
+		}
 		
 		return nickname;
 	}

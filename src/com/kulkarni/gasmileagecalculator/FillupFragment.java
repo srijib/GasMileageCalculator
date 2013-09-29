@@ -23,7 +23,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -217,35 +216,22 @@ public class FillupFragment extends Fragment implements View.OnClickListener,
 					Toast.LENGTH_LONG).show();
 			return;
 		}
-
-		double fuelRate = Double
-				.parseDouble(this.fuelRate.getText().toString());
-		double fuelVolume = Double.parseDouble(this.fuelVolume.getText()
-				.toString());
-		double odometer = Double
-				.parseDouble(this.odometer.getText().toString());
-
-		Fillup fillup = new Fillup(mDate, fuelRate, fuelVolume, odometer,
-				!notToppedUp);
+		
+		double fuelRate   = Double.parseDouble(this.fuelRate.getText().toString());
+		double fuelVolume = Double.parseDouble(this.fuelVolume.getText().toString());
+		double odometer   = Double.parseDouble(this.odometer.getText().toString());
+		
+		Fillup fillup = new Fillup(mDate, fuelRate, fuelVolume, odometer, !notToppedUp);
 		fillup.set_car_id(car_id);
-
+		
 		if (FillupData.fillups.add(fillup)) {
-			try {
-				fd.addFillup(fillup);
-				Toast.makeText(activity, "Fillup added", Toast.LENGTH_SHORT)
-						.show();
-				clearForm();
-			} catch (Exception e) {
-				Log.e(TAG, e.getMessage());
-			}
-
-			// ListView history = (ListView)
-			// activity.findViewById(R.id.history_list);
-			// CursorAdapter adapter = (CursorAdapter) history.getAdapter();
-			// adapter.notifyDataSetChanged();
-		} else {
-			Toast.makeText(activity, "Error adding fillup", Toast.LENGTH_LONG)
-					.show();
+			fd.addFillup(fillup);
+			Toast.makeText(activity, "Fillup added", Toast.LENGTH_SHORT).show();
+			
+			clearForm ();
+		}
+		else {
+			Toast.makeText(activity, "Error adding fillup", Toast.LENGTH_LONG).show();
 			return;
 		}
 	}
@@ -262,6 +248,8 @@ public class FillupFragment extends Fragment implements View.OnClickListener,
 
 		notToppedUp = false;
 		checkTopFillup.setChecked(notToppedUp);
+		
+		fuelRate.requestFocus();
 	}
 
 	private void onCheckedTop(View v) {

@@ -2,8 +2,8 @@ package com.kulkarni.gasmileagecalculator.data;
 
 import java.util.Vector;
 
-import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -14,7 +14,6 @@ public class FillupData {
 	private static final String TAG = FillupData.class.getSimpleName();
 
 	public static Vector<Fillup> fillups;
-	Context context;
 	DbOpenHelper dbHelper;
 
 	private static double average_mileage = 0.0;
@@ -22,18 +21,8 @@ public class FillupData {
 	private static double total_volume = 0.0;
 	private static double total_used_volume = 0.0;
 
-	public FillupData(Context context, DbOpenHelper dbHelper) {
-		this.context = context;
+	public FillupData(DbOpenHelper dbHelper) {
 		this.dbHelper = dbHelper;
-
-		SQLiteDatabase db;
-
-		try {
-			db = dbHelper.getReadableDatabase();
-			db.close();
-		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
-		}
 
 		if (fillups == null) {
 			fillups = new Vector<Fillup>();
@@ -169,22 +158,29 @@ public class FillupData {
 			return null;
 	}
 
-	public void addFillup(Fillup newFillup) {
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-		newFillup.addToDb(db);
-
-		db.close();
+	public void addFillup (Fillup newFillup) {
+		try {
+			SQLiteDatabase db = dbHelper.getWritableDatabase();
+			newFillup.addToDb (db);
+			db.close();
+		} catch (SQLException e) {
+			Log.e(TAG, e.getMessage());
+		}
 	}
-
-	public Cursor getFillups() {
-		String[] columns = { Fillup.C_ID,        Fillup.C_CAR_ID,    Fillup.C_FILLUP_DATE,
+	
+	public Cursor getFillups () {
+		String[] columns = { Fillup.C_ID	   , Fillup.C_CAR_ID   , Fillup.C_FILLUP_DATE,
 							 Fillup.C_FUEL_COST, Fillup.C_FUEL_RATE, Fillup.C_FUEL_VOLUME,
 							 Fillup.C_TOPPED_UP };
-
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor c = db.query(Fillup.TABLE, columns, null, null, null, null,
-				Fillup.C_FILLUP_DATE + " DESC");
+		Cursor c = null;
+		
+		try {
+			SQLiteDatabase db = dbHelper.getReadableDatabase();
+			c = db.query(Fillup.TABLE, columns, null, null, null, null, Fillup.C_FILLUP_DATE + " DESC");
+		} catch (SQLException e) {
+			Log.e(TAG, e.getMessage());
+		}
+		
 		return c;
 	}
 }

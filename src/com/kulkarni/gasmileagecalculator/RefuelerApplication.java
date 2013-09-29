@@ -14,16 +14,12 @@ public class RefuelerApplication extends Application {
 	
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
 		
-		dbHelper = new DbOpenHelper(getApplicationContext());
-		fillups  = new FillupData(getApplicationContext(), dbHelper);
-		vehicles = new VehicleData(getApplicationContext(), dbHelper); 
-	}
-	
-	public DbOpenHelper getDbHelper() {
-		return dbHelper;
+		dbHelper = new DbOpenHelper (this);
+		
+		fillups  = new FillupData(dbHelper);
+		vehicles = new VehicleData(dbHelper); 
 	}
 
 	public FillupData getFillups() {
@@ -34,4 +30,7 @@ public class RefuelerApplication extends Application {
 		return vehicles;
 	}
 	
+	public DbOpenHelper getDbHelper() {
+		return dbHelper;
+	}
 }
