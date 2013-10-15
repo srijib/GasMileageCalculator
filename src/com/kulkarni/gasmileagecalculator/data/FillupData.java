@@ -161,7 +161,7 @@ public class FillupData {
 	public void addFillup (Fillup newFillup) {
 		try {
 			SQLiteDatabase db = dbHelper.getWritableDatabase();
-			newFillup.addToDb (db);
+			newFillup.addToDb (null);
 			db.close();
 		} catch (SQLException e) {
 			Log.e(TAG, e.getMessage());

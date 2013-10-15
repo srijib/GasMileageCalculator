@@ -3,13 +3,14 @@ package com.kulkarni.gasmileagecalculator.data;
 import java.util.Date;
 
 import android.content.ContentValues;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Context;
 import android.location.Location;
 import android.provider.BaseColumns;
 import android.util.Log;
 
 import java.util.Calendar;
+
+import com.kulkarni.gasmileagecalculator.FillupDataProvider;
 
 public class Fillup {
 	private static final String TAG = Fillup.class.getSimpleName();
@@ -132,7 +133,7 @@ public class Fillup {
 		return (distance / currentFillup._fuel_volume);
 	}
 
-	public void addToDb(SQLiteDatabase db) {
+	public void addToDb(Context context) {
 		
 		ContentValues values = new ContentValues();
 		values.put(C_CAR_ID, _car_id);
@@ -149,9 +150,9 @@ public class Fillup {
 		values.put(C_LAST_MODIFIED, modifiedDate.getTime());
 		
 		try {
-			db.insertOrThrow(Fillup.TABLE, null, values);
+			context.getContentResolver().insert(FillupDataProvider.CONTENT_URI, values);
 			Log.d(TAG, "Added new fillup");
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
 			e.printStackTrace();
 		}

@@ -68,7 +68,6 @@ public class FillupFragment extends Fragment implements View.OnClickListener,
 	 * 
 	 */
 	public FillupFragment() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -271,8 +270,7 @@ public class FillupFragment extends Fragment implements View.OnClickListener,
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	public static class DatePickerFragment extends DialogFragment implements
