@@ -2,6 +2,8 @@ package com.kulkarni.gasmileagecalculator.data;
 
 import java.util.Vector;
 
+import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -158,12 +160,10 @@ public class FillupData {
 			return null;
 	}
 
-	public void addFillup (Fillup newFillup) {
+	public void addFillup (Context context, Fillup newFillup) {
 		try {
-			SQLiteDatabase db = dbHelper.getWritableDatabase();
-			newFillup.addToDb (null);
-			db.close();
-		} catch (SQLException e) {
+			newFillup.addToDb (context);
+		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
 		}
 	}
