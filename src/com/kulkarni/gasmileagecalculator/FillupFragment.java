@@ -224,7 +224,7 @@ public class FillupFragment extends Fragment implements View.OnClickListener,
 		fillup.set_car_id(car_id);
 		
 		if (FillupData.fillups.add(fillup)) {
-			fd.addFillup(activity, fillup);
+			fd.addFillup(fillup);
 			Toast.makeText(activity, "Fillup added", Toast.LENGTH_SHORT).show();
 			
 			clearForm ();

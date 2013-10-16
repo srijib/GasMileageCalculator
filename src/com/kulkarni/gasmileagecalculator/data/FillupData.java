@@ -2,29 +2,26 @@ package com.kulkarni.gasmileagecalculator.data;
 
 import java.util.Vector;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.kulkarni.gasmileagecalculator.data.Fillup;
-import com.kulkarni.gasmileagecalculator.helpers.DbOpenHelper;
+import com.kulkarni.gasmileagecalculator.FillupDataProvider;
 
 public class FillupData {
 	private static final String TAG = FillupData.class.getSimpleName();
 
+	Context context;
+	
 	public static Vector<Fillup> fillups;
-	DbOpenHelper dbHelper;
-
+	
 	private static double average_mileage = 0.0;
 	private static double total_distance = 0.0;
 	private static double total_volume = 0.0;
 	private static double total_used_volume = 0.0;
 
-	public FillupData(DbOpenHelper dbHelper) {
-		this.dbHelper = dbHelper;
+	public FillupData(Context context) {
+		this.context = context;
 
 		if (fillups == null) {
 			fillups = new Vector<Fillup>();
@@ -160,7 +157,7 @@ public class FillupData {
 			return null;
 	}
 
-	public void addFillup (Context context, Fillup newFillup) {
+	public void addFillup (Fillup newFillup) {
 		try {
 			newFillup.addToDb (context);
 		} catch (Exception e) {
@@ -172,12 +169,12 @@ public class FillupData {
 		String[] columns = { Fillup.C_ID	   , Fillup.C_CAR_ID   , Fillup.C_FILLUP_DATE,
 							 Fillup.C_FUEL_COST, Fillup.C_FUEL_RATE, Fillup.C_FUEL_VOLUME,
 							 Fillup.C_TOPPED_UP };
+		String sortOrder = Fillup.C_FILLUP_DATE + " DESC";
 		Cursor c = null;
 		
 		try {
-			SQLiteDatabase db = dbHelper.getReadableDatabase();
-			c = db.query(Fillup.TABLE, columns, null, null, null, null, Fillup.C_FILLUP_DATE + " DESC");
-		} catch (SQLException e) {
+			c = context.getContentResolver().query(FillupDataProvider.CONTENT_URI, columns, null, null, sortOrder);
+		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
 		}
 		

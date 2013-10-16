@@ -18,7 +18,7 @@ public class RefuelerApplication extends Application {
 		
 		dbHelper = new DbOpenHelper (this);
 		
-		fillups  = new FillupData(dbHelper);
+		fillups  = new FillupData(this);
 		vehicles = new VehicleData(dbHelper); 
 	}
 
